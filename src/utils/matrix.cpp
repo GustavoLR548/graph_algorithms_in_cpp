@@ -31,6 +31,10 @@ class Matrix {
             return this->element;
         }
 
+        void setElement(T element) {
+            this->element = element;
+        }
+
     };
 
     Cell* first;
@@ -131,16 +135,55 @@ class Matrix {
         }
     }
 
+    //Search the position the cell in the position (x,y)
+    Cell* search(int x, int y) {
+        Cell* resp = this->first;
+
+        for(int i = 0; i < y;i++, resp = resp->down);
+        for(int i = 0; i < x;i++, resp = resp->right);
+
+        return resp;
+    }
+
+    bool is_inside_matrix(int x,int y) {
+        return (x > this->number_of_rows || y > this->number_of_columns || x < 0 || y < 0);
+    }
+
     public:
 
     //Print the Matrix using std::cout
     void print() {
         for(Cell* i = this->first; i != NULL ; i = i->down ) {
             for(Cell* j = i; j != NULL ; j = j->right ) 
-                std::cout << std::to_string(j->getElement()) << " " ;
+                std::cout << j->getElement() << " " ;
             
             std::cout << "\n" ; //Add spacing in between the columns
         }
+        std::cout << "\n" ; //Add spacing after the final column
+    }
+
+    //Return a element T in the position (x,y)
+    T get(int x,int y) {
+        T resp;
+
+        if(is_inside_matrix(x,y)) 
+            return resp;
+        
+        resp = search(x,y)->getElement();
+
+        return resp;
+    }
+
+    //Insert a element T in the position(x,y)
+    bool insert(T element,int x,int y) {
+        if(is_inside_matrix(x,y)) 
+            return false;
+
+        Cell* tmp = search(x,y);
+
+        tmp->setElement(element);
+
+        return true;
     }
 
 
