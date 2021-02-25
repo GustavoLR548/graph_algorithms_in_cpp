@@ -145,7 +145,7 @@ class Matrix {
         return resp;
     }
 
-    bool is_inside_matrix(int x,int y) {
+    bool is_outside_matrix(int x,int y) {
         return (x > this->number_of_rows || y > this->number_of_columns || x < 0 || y < 0);
     }
 
@@ -166,7 +166,7 @@ class Matrix {
     T get(int x,int y) {
         T resp;
 
-        if(is_inside_matrix(x,y)) 
+        if(is_outside_matrix(x,y)) 
             return resp;
         
         resp = search(x,y)->getElement();
@@ -176,7 +176,7 @@ class Matrix {
 
     //Insert a element T in the position(x,y)
     bool insert(T element,int x,int y) {
-        if(is_inside_matrix(x,y)) 
+        if(is_outside_matrix(x,y)) 
             return false;
 
         Cell* tmp = search(x,y);
