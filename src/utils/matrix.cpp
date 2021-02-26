@@ -1,12 +1,14 @@
 #include<string>
 #include<iostream>
 
+int const MIN = 2;
+
 template <typename T>
 class Matrix {
 
     private: 
 
-    //Nested class Cell, to store an element within each point in the array
+    //Nested class Cell, to store an element within each point in the matrix
     class Cell {
 
         private:
@@ -45,32 +47,32 @@ class Matrix {
 
     //Constructor 1: no size specified, creating 3x3 matrix
     Matrix() {
-        this->number_of_columns = 3;
-        this->number_of_rows    = 3;
-        buildMatrix();
+        this->number_of_columns = MIN;
+        this->number_of_rows    = MIN;
+        build_matrix();
     }
 
     //Constructor 2: creating a NxN matrix
     Matrix(short n) {
-        if(n < 3) {
-            n = 3;
+        if(n < MIN) {
+            n = MIN;
         }
         else {
             this->number_of_columns = this->number_of_rows = n;
         }
 
-        buildMatrix();
+        build_matrix();
     }
 
     //Constructor 3: creating a CxR matrix
     Matrix(short c, short r) {
 
-        if( c < 3 || r < 3 ) {
-            if( c < 3) {
-                c = 3;
+        if( c < MIN || r < MIN ) {
+            if( c < MIN) {
+                c = MIN;
             }
-            if ( r < 3) {
-                r = 3;
+            if ( r < MIN) {
+                r = MIN;
             }
         }
         else {
@@ -78,13 +80,13 @@ class Matrix {
             this->number_of_rows    = r;
         }
 
-        buildMatrix();
+        build_matrix();
     }
 
     private: 
 
-    //Creating linked cells to the first cell of the Matrix
-    void buildMatrix() {
+    //Creating all linked cells to the first cell of the Matrix
+    void build_matrix() {
 
         //Creating the first element
         this->first = new Cell();
@@ -94,45 +96,64 @@ class Matrix {
         short r = this->number_of_rows    - 1;
         short c = this->number_of_columns - 1;
 
-        //Generate the first row of cells in the Matrix
-        for (int i = 0; i < r; i++) { 
-            Cell* tmp2 = new Cell();
-
-            tmp->right = tmp2;
-            tmp2->left = tmp;
-
-            tmp = tmp->right;
-        }
+        expand_horizontally(tmp,r);
 
         //reset the pointer to link to the first cell
         tmp = this->first;
 
         //Deploy consecutive rows of cells in the Matrix
         for (int i = 0; i < c;i++) {
-
-            //Start the first element 
-            Cell* tmp2 = new Cell();
-            tmp->down = tmp2;
-            tmp2->up  = tmp;
-
-            for(int j = 0; j < r; j++) {
-                Cell* tmp3  = new Cell();
-
-                //Linking cells horizontally
-                tmp2->right = tmp3;
-                tmp3->left  = tmp2;
-
-                //Linking cells vertically
-                tmp2->up->right->down = tmp3;
-                tmp3->up = tmp2->up->right;
-
-                //Moving the pointer to the right, to continue to create the row
-                tmp2 = tmp2->right;
-            }
-
-            //After creating a row, go to the next one
-            tmp = tmp->down;
+            Cell* tmp2 = expand_vertically(tmp);
+            expand_horizontally_linked_up(tmp2,r);
         }
+    }
+    
+    //Expand the matrix horizontally
+    void expand_horizontally(Cell* c, int n = 1) {
+
+        for(int i = 0 ; i < n; i++) {
+            Cell* tmp = new Cell();
+
+            c->right  = tmp;
+            tmp->left = c;
+
+            c = c->right;
+        }
+    }   
+
+    //Expand the matrix horizontally, and link the same cells
+    //to the ones on the top
+    void expand_horizontally_linked_up(Cell* c,int n = 1) {
+
+        for(int i = 0; i < n; i++) {
+            Cell* tmp  = new Cell();
+
+            //Linking cells horizontally
+            c->right = tmp;
+            tmp->left  = c;
+
+            //Linking cells vertically
+            c->up->right->down = tmp;
+            tmp->up = c->up->right;
+
+            //Moving the pointer to the right, to continue to create the row
+            c = c->right;
+        }
+    }
+
+    //Expand the matrix vertically, and return the pointer
+    //for the last cell
+    Cell* expand_vertically(Cell* c, int n = 1) {
+        Cell* tmp;
+        for(int i = 0; i < n; i++) {
+            tmp = new Cell();
+
+            c->down = tmp;
+            tmp->up  = c;
+
+        }
+
+        return tmp;
     }
 
     //Search the position the cell in the position (x,y)
@@ -145,6 +166,7 @@ class Matrix {
         return resp;
     }
 
+    //Verify if a set coordenate(x,y) is outside of the bounds of the matrix
     bool is_outside_matrix(int x,int y) {
         return (x > this->number_of_rows || y > this->number_of_columns || x < 0 || y < 0);
     }
@@ -184,6 +206,48 @@ class Matrix {
         tmp->setElement(element);
 
         return true;
+    }
+
+    //Expand the matrix both vertically and horizontally
+    void expand_matrix(int expanded) {
+        expand_matrix_horizontally(expanded);
+        expand_matrix_vertically(expanded);
+
+    }
+
+    //Expand the matrix only horizontally
+    void expand_matrix_horizontally(int expanded) {
+
+        number_of_rows    += expanded;
+        Cell* tmp = this->first;
+
+        for(/**/; tmp->right != NULL; tmp = tmp->right);
+        
+        Cell* tmp2 = tmp;
+
+        expand_horizontally(tmp2,expanded);
+
+        do {
+            tmp2 = tmp->down;
+            expand_horizontally_linked_up(tmp2,expanded);
+        } while(tmp2->down != NULL);
+
+        tmp2 = NULL;
+        tmp  = NULL;
+    }
+
+    //Expand the matrix only vertically
+    void expand_matrix_vertically(int expanded) {
+
+        number_of_columns += expanded;
+        Cell* tmp = this->first;
+
+        for(/**/; tmp->down != NULL; tmp = tmp->down);
+        
+        for (int i = 0; i < expanded;i++) {
+            tmp = expand_vertically(tmp);
+            expand_horizontally_linked_up(tmp,number_of_columns-1);
+        }
     }
 
 
