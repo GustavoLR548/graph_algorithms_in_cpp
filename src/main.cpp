@@ -2,6 +2,7 @@
 #include<map>
 #include<string>
 #include<list>
+#include"utils/frontend/menu_options.cpp"
 
 #ifdef linux
 #define clear() std::system("clear")
@@ -18,7 +19,9 @@ std::map<int,std::list<std::string>> menu_text{
 int main() {
     
     clear();
-    menu();
+    MenuOptions* m = new MenuOptions();
+    m->print_current_menu();
+    //menu();
     return 0;
 }
 

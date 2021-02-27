@@ -1,0 +1,12 @@
+0
+1 - Unweighted targeted graph
+2 - Unweighted untargeted graph
+3 - Weighted untargeted graph
+4 - Weighted targeted graph\n
+0 - exit
+1
+1 - Teste1
+2 - Teste2
+3 - Teste3
+4 - Teste4\n
+0 - exit
