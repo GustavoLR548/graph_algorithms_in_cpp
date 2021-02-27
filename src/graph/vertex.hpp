@@ -1,17 +1,25 @@
 #ifndef vertex_hpp
 #define vertex_hpp
 
-class Vertex{
+using vertex_value = int32_t;
+using vertex_tag =  int32_t;
+
+class Vertex {
+    vertex_value value;
+    vertex_tag tag;
 
     public:
 
-    // Construtor
-    Vertex(int value, int tag);
+        // Construtor
+        Vertex(vertex_value value, vertex_tag tag);
 
-    // Funções get e set em vértice
-    void set_vertex_value();
-    int get_vertex_value();
-    void print_this_vertex();
+        // Functions get and set 
+        void set_vertex_value(vertex_value value);
+        int get_vertex_value();
+
+        // Print value of the current vertex
+        void print_this_vertex();
+
 };
 
 #endif

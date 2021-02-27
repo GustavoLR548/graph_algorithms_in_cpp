@@ -2,19 +2,21 @@
 #define graph_hpp
 
 #include "vertex.hpp"
-#include "edge.hpp"
 #include <iostream>
 
+using number_vertices = int32_t;
+using number_edges = int32_t;
+
 class Graph{
-
-    protected:   
-        short vertices;
-        short edges;
-
+    number_vertices count_vertices;
+    number_edges count_edges;
+    bool directed;
+    bool ponderated;
+    
     public:
-        bool isDirected();
-        bool isPonderated();
-        Graph(bool directed, bool ponderated);
+        bool isDirected(int value);
+        bool isPonderated(int value);
+        Graph(number_vertices count_vertices, number_edges count_edges, bool directed, bool ponderated);
         bool add_edge(Vertex *initial, Vertex *last, int edge_value);
         bool add_vertex(Vertex *vertx);
         bool search_vertex(Vertex *vertx);
