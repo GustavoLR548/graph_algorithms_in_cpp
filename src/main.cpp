@@ -2,46 +2,50 @@
 #include<map>
 #include<string>
 #include<list>
+
 #include"utils/frontend/menu_options.cpp"
 
+//Defining a method to clear the terminal while in the program
 #ifdef linux
 #define clear() std::system("clear")
 #else
 #define clear() system("CLS")
 #endif
 
+//functions
 void menu();
-void printMenu(std::list<std::string> texts);
 
-std::map<int,std::list<std::string>> menu_text{
-    {0,{"1 - Unweighted targeted graph","2 - Unweighted untargeted graph","3 - Weighted untargeted graph","4 - Weighted targeted graph","0 - exit"}}
-};
 int main() {
     
     clear();
-    MenuOptions* m = new MenuOptions();
-    m->print_current_menu();
-    //menu();
+    menu();
     return 0;
 }
 
 void menu() {
 
-    short menuIndex = 0;
+    MenuOptions* m = new MenuOptions();
+    Operation operation;
     short choice    = 0;
 
     do {
-        printMenu(menu_text[menuIndex]);
+        
+        m->print_current_menu();
         std::cout << "\n" << "->";
+
         std::cin >> choice;
         clear();
 
-    } while(choice != 0);
-}
+        operation = m->change_current_menu(choice);
 
-void printMenu(std::list<std::string> texts) {
-    std::list <std::string> :: iterator text; 
-    for(text = texts.begin(); text != texts.end(); ++text) 
-        std::cout << '\n' << *text; 
-    std::cout << '\n'; 
+        if(operation == Operation::Error) {
+            std::cout << "This option is invalid, or do not exist!\nPlease, try again!" << std::endl;
+
+        } else if(operation != Operation::Quit && operation != Operation::Procced) {
+            std::cout << operation << "aqui?" << std::endl;
+        }
+
+    } while(operation != Operation::Quit);
+
+    std::cout << "Thanks for using the program!\nHave a nice day :)" << std::endl;
 }

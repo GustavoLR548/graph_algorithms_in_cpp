@@ -4,7 +4,6 @@
 * Implementing the graph class
 *  v0.1
 */
-
     //Return the number of vertices the graph has
     short Graph::getVerticesNumber() {
         return this->vertices;
