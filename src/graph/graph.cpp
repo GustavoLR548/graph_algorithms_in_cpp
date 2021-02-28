@@ -1,5 +1,6 @@
 #include "graph.hpp"
 #include<string>
+#include<iostream>
 /*
 * Implementing the graph class
 *  v0.1
@@ -32,13 +33,20 @@
     } 
 
     bool Graph::add_vertex(Vertex *vertx) {
-        if(search_vertex(vertx) == true) {
-            std::cout << "Error: Vertex already added!" << std::endl;  
-        } else {
-            // Implementação com a lista...
-        }
+        bool vertex_addition = true;
 
-        return true;
+        for(auto i : this->all_vertices_values) {
+            if(i == vertx->get_vertex_value()) {
+                vertex_addition = false;
+            } 
+        }  
+        
+        if (vertex_addition)
+        {
+            this->all_vertices_values.push_back(vertx->get_vertex_value());
+        }
+        
+        return vertex_addition;
     }
 
     bool Graph::add_edge(Vertex *initial, Vertex *end, int value) {
@@ -47,6 +55,19 @@
 
     bool Graph::search_vertex(Vertex *vertx) {
         // Implementação da lista...
+    }
+
+    // Print all the vertices values
+    void Graph::print_vertices(){
+
+        std::cout << "Vertices_Values = [ ";
+
+        for(auto i : this->all_vertices_values) {
+            std::cout << i << "";
+        }
+
+        std::cout << "]";
+
     }
 
     //Return the number of vertices the graph has
