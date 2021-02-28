@@ -10,12 +10,14 @@ class Vertex {
 
     public:
 
-        // Construtor
-        Vertex(vertex_value value, vertex_tag tag);
+        // Constructor
+        Vertex(vertex_value value);
 
         // Functions get and set 
         void set_vertex_value(vertex_value value);
         int get_vertex_value();
+        void set_vertex_tag(vertex_tag tag);
+        int get_vertex_tag();
 
         // Print value of the current vertex
         void print_this_vertex();
