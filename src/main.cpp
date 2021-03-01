@@ -19,10 +19,7 @@ void menu();
 int main() {
     
     clear();
-    Matrix<int>* m = new Matrix<int>();
-    m->insert(1,0,1);
-    m->print();
-    //menu();
+    menu();
     return 0;
 }
 

@@ -32,8 +32,7 @@
 \end{abstract}
 
 \begin{resumo} 
-  Este documento serve como guia para explicar como 
-  foi a implementação
+  Este documento serve como guia para explicar como foi a implementação
   de 4 tipos diferentes de grafos usando a linguagem C++. Os tipos de 
   grafos são: a) Grafo direcionado não-ponderado,b) Grafo não-direcionado 
   não-ponderado,c) Grafo direcionado ponderado,d) Grafo não-direcionado 
@@ -63,10 +62,10 @@
   Primeiro, o objeto irá resgatar o menu a partir de um arquivo de texto, e armazenar
   tudo dentro de um vetor com vetores de texto(std::string). O index do menu começara
   sempre no início do vetor, e assim que ele for necessário, o usuário pode imprimir na tela, usando:
-  \emph{printcurrentmenu}.
+  \emph{print\_current\_menu()}.
 
   Além disso o programa pode interpretar entrada do usuário, com a função
-  \emph{intepretuserinput}, onde o programa irá verificar se é uma entrada
+  \emph{intepret\_user\_input(char input)}, onde o programa irá verificar se é uma entrada
   válida, além de retornar alguma operação(Se houver a necessidade de realizar)
   alguma operação.
 
@@ -101,8 +100,8 @@
 
   \subsection{Expandir a matriz}
 
-  Uma das funções especiais dessa matriz em específica, é que ela pode
-  expandir de acordo com a necessidade dos usuários. Vamos supor que o mesmo
+  Dentro da matriz existe três funções em específica, que possui a funcionalidade:
+  expandir a mesma, de acordo com a necessidade dos usuários. Vamos supor que o mesmo
   começe com uma matrix 2x2 e queira inserir mais elementos dentro dela. Neste
   caso, ele pode inserir esse elemento, expandido a matriz, seja de forma quadrada,
   vertical ou horizontal.
