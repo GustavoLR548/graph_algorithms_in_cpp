@@ -46,7 +46,7 @@
         std::cout << '\n'; 
     }
 
-    Operation MenuOptions::change_current_menu(short user_choice) {
+    Operation MenuOptions::interpret_user_input(short user_choice) {
 
         Operation result;
 

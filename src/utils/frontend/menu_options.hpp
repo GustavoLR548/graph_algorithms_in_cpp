@@ -23,7 +23,7 @@ class MenuOptions {
     public: 
     //Constructor 1: Get all of the menu options in the file inside "path"
         MenuOptions(std::string path = "texts.txt");
-        Operation change_current_menu(short user_choice);
+        Operation interpret_user_input(short user_choice);
         void print_current_menu();
         int get_current_menu_index();
         bool quit_program(short user_choice);

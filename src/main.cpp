@@ -36,7 +36,7 @@ void menu() {
         std::cin >> choice;
         clear();
 
-        operation = m->change_current_menu(choice);
+        operation = m->interpret_user_input(choice);
 
         if(operation == Operation::Error) {
             std::cout << "This option is invalid, or do not exist!\nPlease, try again!" << std::endl;
