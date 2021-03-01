@@ -1,19 +1,51 @@
 #include<iostream>
+#include<map>
 #include<string>
-#include "utils/matrix.cpp"
+#include<list>
+
+#include"utils/frontend/menu_options.cpp"
+
+//Defining a method to clear the terminal while in the program
+#ifdef linux
+#define clear() std::system("clear")
+#else
+#define clear() system("CLS")
+#endif
+
+//functions
+void menu();
 
 int main() {
+    
+    clear();
+    menu();
+    return 0;
+}
 
-    Matrix<std::string>* m = new Matrix<std::string>();
-    m->print();
-    m->insert("teste",0,1);
-    m->print();
-    std::cout << m->get(0,1) << std::endl;
+void menu() {
 
-    Matrix<int>* n = new Matrix<int>();
-    n->print();
-    n->insert(2,0,1);
-    n->print();
-    std::cout << n->get(0,1) << std::endl;
+    MenuOptions* m = new MenuOptions();
+    Operation operation;
+    short choice    = 0;
 
+    do {
+        
+        m->print_current_menu();
+        std::cout << "\n" << "->";
+
+        std::cin >> choice;
+        clear();
+
+        operation = m->interpret_user_input(choice);
+
+        if(operation == Operation::Error) {
+            std::cout << "This option is invalid, or do not exist!\nPlease, try again!" << std::endl;
+
+        } else if(operation != Operation::Quit && operation != Operation::Procced) {
+            std::cout << operation << "aqui?" << std::endl;
+        }
+
+    } while(operation != Operation::Quit);
+
+    std::cout << "Thanks for using the program!\nHave a nice day :)" << std::endl;
 }

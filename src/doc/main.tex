@@ -43,5 +43,68 @@
 
 \section{Informações gerais}
 
+  Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a \emph{Pontifícia Universidade Católica de Minas Gerais},
+  onde foi necessário a construção de 4 tipos de grafos diferentes em C++.
+
+  \begin{itemize}
+    \item Grafo direcionado não-ponderado
+    \item Grafo não direcionado não ponderado 
+    \item Grafo direcionado ponderado
+    \item Grafo não-direcionado ponderado
+  \end{itemize}
+
+  Para a interação com tais grafos, foi feito um sistema de menu, onde o usuário pode interagir com o programa,
+  logo, escolher quais operações gostaria de fazer, além de escolher em qual grafo.
+
+  \section{MenuOptions.cpp}
+
+  A classe MenuOptions.cpp foi elaborada com o propósito de organizar todos os menus assim como a tomada de decisões do programa.
+
+  Primeiro, o objeto irá resgatar o menu a partir de um arquivo de texto, e armazenar
+  tudo dentro de um vetor com vetores de texto(std::string). O index do menu começara
+  sempre no início do vetor, e assim que ele for necessário, o usuário pode imprimir na tela, usando:
+  \emph{printcurrentmenu}.
+
+  Além disso o programa pode interpretar entrada do usuário, com a função
+  \emph{intepretuserinput}, onde o programa irá verificar se é uma entrada
+  válida, além de retornar alguma operação(Se houver a necessidade de realizar)
+  alguma operação.
+
+  \section{Matriz}
+
+  A class Matriz.cpp foi criada para a utilização de busca por matriz no
+  grafo. Em alguns dos casos, fazer busca pela Matriz pode se mostrar mais 
+  interessante em uma matriz do que usando um vector.
+
+  Além disso, a matriz foi criada usando um sistema de template(T), em outras
+  palavras, esta classe possui uma abstração em relação ao conteúdo inserida
+  na mesma, o usuário pode tanto inserir um tipo de dado primitivo(int, char) ou até
+  mesmo outras classes.
+
+  Para a utilização da matriz, apenas é preciso enviar para o classe o 
+  tamanho da mesma, e então o programa irá criar dinamicamente as células.
+
+  Eis aqui algumas das funcionalidades que a matriz possui.
+
+  \subsection{get}
+
+  Para pegar o conteúdo T em alguma posição específica da matriz, se usa 
+  a função get, que recebe a posição da célula em forma de sistema cartesiano
+  (x,y), e retorna o elemento contido na posição.
+
+  \subsection{insert} 
+
+  Assim como é possivel resgatar um elemento T da matriz, é possível inserir
+  um também, usando a função insert. Da mesma forma que a função get, esta 
+  recebe a posição da célula no eixo das coordenadas e abscissas, e retorna
+  um booleano, se foi possível inserir. 
+
+  \subsection{Expandir a matriz}
+
+  Uma das funções especiais dessa matriz em específica, é que ela pode
+  expandir de acordo com a necessidade dos usuários. Vamos supor que o mesmo
+  começe com uma matrix 2x2 e queira inserir mais elementos dentro dela. Neste
+  caso, ele pode inserir esse elemento, expandido a matriz, seja de forma quadrada,
+  vertical ou horizontal.
 
 \end{document}
