@@ -4,6 +4,7 @@
 #include<list>
 
 #include"utils/frontend/menu_options.cpp"
+#include"utils/matrix/matrix.cpp"
 
 //Defining a method to clear the terminal while in the program
 #ifdef linux
@@ -18,7 +19,10 @@ void menu();
 int main() {
     
     clear();
-    menu();
+    Matrix<int>* m = new Matrix<int>();
+    m->insert(1,0,1);
+    m->print();
+    //menu();
     return 0;
 }
 
