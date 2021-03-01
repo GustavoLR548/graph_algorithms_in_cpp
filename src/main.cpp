@@ -4,6 +4,7 @@
 #include<list>
 
 #include"utils/frontend/menu_options.cpp"
+#include"utils/matrix/matrix.cpp"
 
 //Defining a method to clear the terminal while in the program
 #ifdef linux
