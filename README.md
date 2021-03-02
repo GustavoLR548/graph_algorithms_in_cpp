@@ -8,3 +8,9 @@ Objectives:
 - [ ] Unweighted untargeted graph
 - [ ] Weighted untargeted graph
 - [ ] Weighted targeted graph
+
+# How to use this repository
+
+- ```git clone {this_repository}``` 
+- ```g++ main.cpp```
+- ```./a.out```
