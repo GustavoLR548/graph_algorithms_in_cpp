@@ -1,5 +1,7 @@
 # Graph algorithms in C++
 
+![shield](https://img.shields.io/badge/license-MIT-green)
+
 This github repository was created to implement graphs in cpp
 
 Objectives:
