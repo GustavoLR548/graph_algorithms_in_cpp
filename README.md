@@ -4,13 +4,14 @@
 
 This github repository was created to implement graphs in cpp
 
-Objectives:
-
+### Objectives:
 - [ ] Unweighted targeted graph
 - [ ] Unweighted untargeted graph
 - [ ] Weighted untargeted graph
 - [ ] Weighted targeted graph
-- [ ] Functioning menu
+
+### Optional:
+- [ ] Functioning menu 
 - [ ] SQL database for storing the graphs
 
 # How to use this repository
