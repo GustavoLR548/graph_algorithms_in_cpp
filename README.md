@@ -10,6 +10,8 @@ Objectives:
 - [ ] Unweighted untargeted graph
 - [ ] Weighted untargeted graph
 - [ ] Weighted targeted graph
+- [ ] Functioning menu
+- [ ] SQL database for storing the graphs
 
 # How to use this repository
 
