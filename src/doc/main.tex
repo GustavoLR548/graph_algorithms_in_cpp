@@ -69,9 +69,49 @@
   válida, além de retornar alguma operação(Se houver a necessidade de realizar)
   alguma operação.
 
-  \section{Matriz}
+  \section{Vertice}
 
-  A class Matriz.cpp foi criada para a utilização de busca por matriz no
+  A classe vertex.cpp foi criada no intuito de estabeler variáveis na implementação dessa estrutura. 
+  Para implementação se tornar mais abstrata, foi utilizado o using tornando assim o código mais flexível 
+  para alterações futuras.
+  
+  Além disso, o vertíce apresenta duas variáveis \emph{tag} e \emph{value}. O \emph{tag} serve como um identificador para 
+  a localização do vértice na estrutura da Matriz (para mais informações olhar a seção [\ref{sec:matriz}]).
+  O \emph{value} está relacionado a implementação de grafos ponderados.
+
+  Entre as funções presentes na classe, se encontra os sets e os gets, um construtor para Vertice e o 
+  print.
+
+  \section{Grafo}
+
+  A classe graph.cpp é onde ocorre a maior parte das operações...
+  
+  Para armazenar os vertíces, foi escolhido utilizar o std::vector, pois além dele ser uma estrutura mais 
+  flexível ele possui acesso direto do index do array a partir da função .at().
+
+  No caso das arestas foi utilizado uma matriz para o armazenamento. Isso deve ao fato dela ser flexível, 
+  possibilitando a ligação do par de vertíces ao qual ela é originada.
+
+  Entre as funcionalidades da classe, se encontram na seção abaixo
+
+  \subsection{add\_vertex}
+  
+  A função retorna um booleano, caso a operação ocorra com sucesso. Além disso verifica se o vertíce 
+  já estava presente no vector, se não dá um push\_back no mesmo.
+
+  \subsection{add\_edge}
+
+  Função que retorna um booleano, caso a operação ocorra com sucesso. Verifica se o vertíce
+  já estava presente na matriz, se não expande a matriz(Verificar função de expansão na seção [\ref{sec:matriz}]).
+  No final desse processo adiciona a aresta.  
+
+  \subsection{print}
+
+  Função que da print nos valores dos vertíces e das arestas.
+
+  \section{Matriz} \label{sec:matriz}
+
+  A classe matrix.cpp foi criada para a utilização de busca por matriz no
   grafo. Em alguns dos casos, fazer busca pela Matriz pode se mostrar mais 
   interessante em uma matriz do que usando um vector.
 

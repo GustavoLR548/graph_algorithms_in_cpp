@@ -1,10 +1,12 @@
 #include<iostream>
 #include<map>
 #include<string>
-#include<list>
+#include<vector>
 
 #include"utils/frontend/menu_options.cpp"
 #include"utils/matrix/matrix.cpp"
+#include"graph/graph.cpp"
+#include"graph/vertex.cpp"
 
 //Defining a method to clear the terminal while in the program
 #ifdef linux
@@ -19,7 +21,22 @@ void menu();
 int main() {
     
     clear();
-    menu();
+    //menu();
+
+    Graph* teste = new Graph(0,0,true,false);
+    Vertex* a = new Vertex(22);
+    Vertex* b = new Vertex(3);
+    Vertex* c = new Vertex(111);
+
+    teste->add_vertex(a);
+    teste->add_vertex(b);
+    teste->add_vertex(c);
+
+    teste->add_edge(b,a,365);
+
+    teste->print_vertices();
+    teste->print_edges();
+
     return 0;
 }
 
