@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "vertex.hpp"
-#include "utils/matrix/matrix.cpp"
+#include "../utils/matrix/matrix.hpp"
 
 using edge_value = int32_t;
 using number_vertices = int32_t;
@@ -13,10 +13,11 @@ using number_edges = int32_t;
 class Graph {
     number_vertices count_vertices;
     number_edges count_edges;
+    int tag_count = 0;
     bool directed;
     bool ponderated;
     std::vector<vertex_value> all_vertices_values;
-    Matrix<edge_value> all_edges_values;
+    Matrix<edge_value>* all_edges_values;
 
     public:
         
@@ -35,11 +36,10 @@ class Graph {
         void print_vertices();
         void print_edges();
         
-        //
+        // Get the number of vertices and edges in the graph
         short getVerticesNumber();  
         short getEdgesNumber();
-        
-        virtual std::string print();  
+          
 };
 
 #endif
