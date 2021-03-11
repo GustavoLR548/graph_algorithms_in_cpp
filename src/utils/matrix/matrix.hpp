@@ -26,6 +26,7 @@ class Matrix {
     public: 
 
         Matrix();
+        ~Matrix();
         Matrix(short n);
         Matrix(short c, short r);
 

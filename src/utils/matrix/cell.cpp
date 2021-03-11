@@ -8,6 +8,15 @@ Cell<T>::Cell() {
     this->down    = nullptr;
 }
 
+template <typename T> 
+Cell<T>::~Cell() {
+    free(this->left);
+    free(this->right);
+    free(this->up);
+    free(this->down);
+}
+
+
 template <typename T>
 T Cell<T>::getElement() {
     return this->element;

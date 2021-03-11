@@ -43,6 +43,12 @@ Matrix<T>::Matrix(short c, short r) {
     build_matrix();
 }
 
+template <typename T> 
+Matrix<T>::~Matrix() {
+    free(this->first);
+}
+
+
 template <typename T>
 short Matrix<T>::get_number_of_columns() {
     return this->number_of_columns;

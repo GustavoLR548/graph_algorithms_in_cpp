@@ -4,20 +4,21 @@
 template <typename T>
 class Cell {
 
-        private:
+    private:
 
-            T element;
+        T element;
 
-        public:
+    public:
 
-            Cell* left;
-            Cell* right;
-            Cell* up;
-            Cell* down;
+        Cell* left;
+        Cell* right;
+        Cell* up;
+        Cell* down;
 
-            Cell();
-            T getElement();
-            void setElement(T element);
+        Cell();
+        ~Cell();
+        T getElement();
+        void setElement(T element);
 };
 
 #endif
