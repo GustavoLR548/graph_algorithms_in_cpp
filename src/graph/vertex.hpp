@@ -1,6 +1,8 @@
 #ifndef vertex_hpp
 #define vertex_hpp
 
+#include<stdint.h>
+
 using vertex_value = int32_t;
 using vertex_tag =  int32_t;
 

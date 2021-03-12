@@ -4,7 +4,7 @@
 #include<vector>
 
 #include"utils/frontend/menu_options.cpp"
-#include"utils/matrix/matrix.cpp"
+#include"utils/matrix_cpp/matrix.cpp"
 #include"graph/graph.cpp"
 #include"graph/vertex.cpp"
 

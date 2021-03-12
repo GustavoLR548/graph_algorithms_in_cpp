@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "vertex.hpp"
-#include "../utils/matrix/matrix.hpp"
+#include "../utils/matrix_cpp/matrix.hpp"
 
 using edge_value = int32_t;
 using number_vertices = int32_t;
