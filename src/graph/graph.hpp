@@ -34,6 +34,8 @@ class Graph {
         // Visit a specific vertex and verify the color of the adjs
         //This is a function only used in depth first search
         void visit_vertex(counter index, std::vector<counter>* colour);
+        //Verify if a certain vertex exists
+        bool has_vertex(counter id);
 
     public:
         
@@ -42,7 +44,7 @@ class Graph {
         //Start the Graph with three empty vertices
         Graph();
         //Start the Graph with 'vertices' number of vertices
-        Graph(counter vertices);
+        Graph(counter vertices = 3);
         //Descontructor
         ~Graph();
 
@@ -55,8 +57,6 @@ class Graph {
         bool add_edge(counter first, counter last, weight weight = 0);
         // Add a new Vertex to the graph and return if it is successful 
         counter add_vertex();
-        //Make a basic search with the id of the vertex
-        bool search_vertex(counter id);
         // get number of vertices of the graph
         counter vertices_num();  
         // get number of edges of the graph
