@@ -1,131 +1,213 @@
 #include "graph.hpp"
-#include<string>
 #include<iostream>
+#include <bits/stdc++.h>
+#include <array> 
 /*
 * Implementing the graph class
 *  v0.1
 */
-    // Checks if the graph is directed or not
-    bool Graph::isDirected(int value) {
-        bool directed = false;
 
-        if(value == 1) {
-            directed = true;
-        }
+    // Start the graph with the 'min' size of Matrix
+    Graph::Graph() {
 
-        return directed;
+        //Starting the matrix with EMPTY value
+        weight default_value = EMPTY;
+        this->graph          = new Matrix<weight>(default_value);
+
+        this->vertices = 0;
+        this->edges    = 0;
     }
 
-    // Checks if the graph is ponderated or not 
-    bool Graph::isPonderated(int value) {
-        bool ponderated = false;
+    // Start the graph matrix with a set size
+    Graph::Graph(counter v) {
 
-        if(value == 1) {
-            ponderated = true;
-        }
-
-        return ponderated;
+        //Starting the matrix with EMPTY value
+        weight default_value = EMPTY;
+        this->graph          = new Matrix<weight>(default_value);
+        
+        this->vertices = 0;
+        this->edges    = 0;
     } 
 
-    // Constructor 
-    Graph::Graph(number_vertices count_vertices,number_edges count_edges, bool directed, bool ponderated) {
-        this->count_vertices = count_vertices;
-        this->count_edges = count_edges;
-        this->directed = directed;
-        this->ponderated = ponderated;
-        all_edges_values = new Matrix<edge_value>();
-    } 
-
-    // Add a new Vertex to the graph and return if its successfully
-    bool Graph::add_vertex(Vertex *vertx) {
-        bool vertex_addition = true;
-
-        for(auto i : this->all_vertices_values) {
-            if(i == vertx->get_vertex_value()) {
-                vertex_addition = false;
-                std::cout << "An error has occured: The vertex already exist in the graph!";
-                break;
-            } 
-        }  
-        
-        if(vertex_addition)
-        {
-            this->all_vertices_values.push_back(vertx->get_vertex_value());            
-            vertx->set_vertex_tag(tag_count);
-            tag_count++;
-
-        }
-        
-        return vertex_addition;
+    Graph::~Graph() {
+        free(this->graph);
     }
 
-    // Checks if the vertx is already in the matrix, if it is not expand the matrix
-    void Graph::has_space(Vertex *vertx){
-
-        if(search_vertex(vertx) == false) {
-            vertx->set_vertex_tag(all_vertices_values.size() + 1);
-            all_edges_values->expand_matrix(vertx->get_vertex_tag());
-        }
-
+    //Return the number of vertices the graph has
+    counter Graph::vertices_num() {
+        return this->vertices;
     }
 
-    // Add a new Edge to the graph and return if its successfully
-    bool Graph::add_edge(Vertex *first, Vertex *last, int value) {
-        bool edge_addition;
+    //Return the number of edges the graph has
+    counter Graph::edges_num() {
+        return this->edges;
+    }
 
-        has_space(first);
-        has_space(last);
+    counter Graph::add_vertex() {
+        counter result = -1;
+        counter pos    = this->vertices;
 
-        edge_addition = all_edges_values->insert(value,first->get_vertex_tag(),last->get_vertex_tag());
+        has_space();
 
-        if(this->directed == false) {
-            edge_addition = all_edges_values->insert(value,last->get_vertex_tag(),first->get_vertex_tag());
+        this->graph->insert(pos,pos,pos);
+        result = this->vertices;
+        this->vertices++;
+
+        std::vector<counter> it;
+        this->adj.push_back(it);
+        
+        return result;
+    }
+
+    bool Graph::has_space(){
+        bool result = false;
+
+        if(this->vertices == this->graph->get_number_of_columns()) {
+            this->graph->expand_matrix(1,EMPTY);
+            result = true;
         }
 
+        return result;
+    }
 
-        return edge_addition;
+    // Add a new Edge to the graph and return if the operation was a success
+    bool Graph::add_edge(counter first, counter last, weight value) {
+        bool result = false;
+
+        if(search_vertex(first) && search_vertex(last)) {
+            this->graph->insert(value,first,last);
+            this->graph->insert(value,last,first);
+            result = true;
+            this->edges++;
+
+            add_adj(first, last);
+            add_adj(last, first);
+        }
+
+        return result;
     }
 
     // Checks if the vertex exist
-    bool Graph::search_vertex(Vertex *vertx) {
+    bool Graph::search_vertex(counter id) {
         bool resp = false;
 
-        if(vertx->get_vertex_tag() != -1 && vertx->get_vertex_tag() < all_vertices_values.size()) 
+        if (this->graph->get(id,id) != EMPTY) 
             resp = true;
-          
+        
         return resp;
-    } 
+    }
 
-    // Print all the vertices values
-    void Graph::print_vertices() {
+    void Graph::add_adj(counter first, counter last) {
+        auto it = this->adj.at(first);
+        it.push_back(last);
 
-        std::cout << "Vertices_Values = [ ";
+        std::replace(this->adj.begin(), this->adj.end(), this->adj.at(first), it);
+    }
 
-        for(auto i : this->all_vertices_values) {
-            std::cout << i << " ";
+    void Graph::print() {
+
+        std::cout << "Number of vertices: " << this->vertices << std::endl;
+        std::cout << "Number of edges   : " << this->edges << std::endl; 
+
+        std::cout << "\nAdj:\n"; 
+
+        for(int i = 0; i < adj.size(); i++) {
+            std::vector<counter> it = this->adj.at(i);
+            std::vector<counter> :: iterator v;
+            std::cout << "v[" << i << "] :"; 
+            for(v = it.begin(); v != it.end() ;++v) {
+                std::cout << ' ' << *v; 
+            }
+            std::cout << '\n'; 
+        }
+        std::cout << '\n'; 
+
+        this->graph->print(); 
+    }
+
+    bool Graph::depth_first_search(counter first) {
+        std::vector<counter> colour;
+
+        //Mark all vertices as : "NOT VISITED"
+        for(int i = 0; i < this->vertices; i++)
+            colour.push_back(WHITE);
+
+        //Loop through all vertices in the graph
+        for(counter i = 0; i < this->vertices; i++) 
+
+            //if the curr vertex hasn't been visited
+            if(colour.at(i) == WHITE) 
+
+                //visiting current vertex
+                //Obs: I'm sending a pointer to the 
+                //memory address of the 'colour' std::vector
+                //so that all recursive calls to 'visit_vertex'
+                //can update when a vertex is visited
+                visit_vertex(i,&colour);
+
+        return true;
+    }
+
+    void Graph::visit_vertex (counter index, std::vector<counter>* colour) {
+        //Mark current vertex as visited
+        colour->at(index) = YELLOW;
+
+        //Start adj std::vector
+        std::vector<counter> curr_vertex_adj = this->adj.at(index); 
+
+        //Loop through adj std::vector of the curr_vertex
+        for(auto i = curr_vertex_adj.begin() ; i != curr_vertex_adj.end(); i++) 
+
+            //if adj vertex hasn't been visited
+            if(colour->at(*i) == WHITE)
+
+                //recursive call to 'visit_vertex'
+                visit_vertex(colour->at(*i),colour);
+        
+        //Mark vertex as completed
+        colour->at(index) = RED;
+    }
+
+    bool Graph::breadth_first_search() {
+        std::vector<counter> colour;
+
+        //Mark all vertices as : "NOT VISITED"
+        for(int i = 0; i < this->vertices; i++)
+            colour.push_back(WHITE);
+
+        //Start the queue with the first vertice of the graph
+        std::vector<counter> queue;
+        queue.push_back(0);
+
+        //While the queue is not empty
+        while(queue.size() > 0) {
+
+            //Remove the first element of the queue 
+            //and store it in a variable
+            counter curr_vert = *queue.begin();
+            queue.erase(queue.begin());
+
+            //If the element is not visited
+            if(colour.at(curr_vert) != WHITE) {
+
+                //Mark as visited
+                colour.at(curr_vert) = YELLOW;
+
+                //Start adj std::vector
+                std::vector<counter> curr_vertex_adj = this->adj.at(curr_vert); 
+
+                //Loop through adj std::vector of the curr_vertex
+                for(auto i = curr_vertex_adj.begin() ; i != curr_vertex_adj.end(); i++) 
+
+                    //if adj vertex hasn't been visited
+                    if(colour.at(*i) == WHITE)
+                        //mark to be visited in the next iterations of the loop
+                        queue.push_back(*i);
+
+                //mark the curr_vertex as completed
+                colour.at(curr_vert) = RED;
+            }
         }
 
-        std::cout << "]" << std::endl;
-
-    }
-
-    // Print all the edges values
-    void Graph::print_edges() {
-        
-        //std::cout << "Edges_Values = [ ";
-
-        all_edges_values->print();
-
-        //std::cout << "]";
-
-    }
-
-    // Return the number of vertices the graph has
-    short Graph::getVerticesNumber() {
-        return this->count_vertices;
-    }
-
-    // Return the number of edges the graph has
-    short Graph::getEdgesNumber() {
-        return this->count_edges;
+        return true;
     }

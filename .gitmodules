@@ -1,3 +1,6 @@
 [submodule "src/utils/matrix_cpp"]
 	path = src/utils/matrix_cpp
 	url = https://github.com/MysteRys337/matrix_cpp
+[submodule "src/graph/matrix_cpp"]
+	path = src/graph/matrix_cpp
+	url = https://github.com/MysteRys337/matrix_cpp
