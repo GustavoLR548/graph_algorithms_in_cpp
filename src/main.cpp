@@ -16,7 +16,6 @@
 int main() {
     
     clear();
-    //menu();
 
     Graph* teste = new Graph(10);
 
@@ -35,6 +34,8 @@ int main() {
     teste->print();
 
     teste->breadth_first_search();
+    std::cout << "\nLargura" << std::endl;
+    teste->depth_first_search(0);
     return 0;
 }
 
