@@ -2,17 +2,11 @@
 
 ![shield](https://img.shields.io/badge/license-MIT-green)
 
-This github repository was created to implement graphs in cpp
+This github repository was created to implement graphs in cpp, in order to count the number of cicles using
 
 ### Objectives:
-- [ ] Unweighted targeted graph
-- [ ] Unweighted untargeted graph
-- [ ] Weighted untargeted graph
-- [ ] Weighted targeted graph
-
-### Optional:
-- [ ] Functioning menu 
-- [ ] SQL database for storing the graphs
+- [ ] Walk 
+- [ ] Permutation
 
 # How to use this repository
 
