@@ -10,7 +10,7 @@
      
 \sloppy
 
-\title{Implementação de grafos usando C++}
+\title{Estudo de diferentes formas de enumeração de ciclos em um grafo}
 
 \author{Gustavo Lopes Rodrigues\inst{1}, Thiago Henriques Nogueira\inst{2},}
 
@@ -24,63 +24,28 @@
 \maketitle
 
 \begin{abstract} 
-  This document serves as a guide to explain how it
-  was the implementation
-  of 4 different types of graphs using the C ++ language. The types of
-  graphs are: a) Unweighted directed graph, b) Unweighted non-directed graph
-  , c) Weighted targeted graph, d) Weighted non-directed graph.
+  This document serves as a report on the study in two different ways
+  to enumerate cycles within a graph: permutation and walking. For this
+  study, we only work with non-directed graphs. So we did the implementation
+  of the code in C++, as well as we did a method to calculate the performance of these
+  methods as the graph increases.
 \end{abstract}
 
 \begin{resumo} 
-  Este documento serve como guia para explicar como foi a implementação
-  de 4 tipos diferentes de grafos usando a linguagem C++. Os tipos de 
-  grafos são: a) Grafo direcionado não-ponderado,b) Grafo não-direcionado 
-  não-ponderado,c) Grafo direcionado ponderado,d) Grafo não-direcionado 
-  ponderado.
+  Este documento serve para fazer como um relatório sobre o estudo em duas maneiras 
+  diferentes de enumerar ciclos dentro de um grafo: permutação e por caminhamento. Para esse 
+  estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos a implementação 
+  do código em C++, assim também como fizemos um método para calcular o desempenho desses 
+  métodos, na medida que o grafo aumentasse.
 \end{resumo}
 
 
 \section{Informações gerais}
 
   Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a \emph{Pontifícia Universidade Católica de Minas Gerais},
-  onde foi necessário a construção de 4 tipos de grafos diferentes em C++.
-
-  \begin{itemize}
-    \item Grafo direcionado não-ponderado
-    \item Grafo não direcionado não ponderado 
-    \item Grafo direcionado ponderado
-    \item Grafo não-direcionado ponderado
-  \end{itemize}
-
-  Para a interação com tais grafos, foi feito um sistema de menu, onde o usuário pode interagir com o programa,
-  logo, escolher quais operações gostaria de fazer, além de escolher em qual grafo.
-
-  \section{MenuOptions.cpp}
-
-  A classe MenuOptions.cpp foi elaborada com o propósito de organizar todos os menus assim como a tomada de decisões do programa.
-
-  Primeiro, o objeto irá resgatar o menu a partir de um arquivo de texto, e armazenar
-  tudo dentro de um vetor com vetores de texto(std::string). O index do menu começara
-  sempre no início do vetor, e assim que ele for necessário, o usuário pode imprimir na tela, usando:
-  \emph{print\_current\_menu()}.
-
-  Além disso o programa pode interpretar entrada do usuário, com a função
-  \emph{intepret\_user\_input(char input)}, onde o programa irá verificar se é uma entrada
-  válida, além de retornar alguma operação(Se houver a necessidade de realizar)
-  alguma operação.
-
-  \section{Vertice}
-
-  A classe vertex.cpp foi criada no intuito de estabeler variáveis na implementação dessa estrutura. 
-  Para implementação se tornar mais abstrata, foi utilizado o using tornando assim o código mais flexível 
-  para alterações futuras.
-  
-  Além disso, o vertíce apresenta duas variáveis \emph{tag} e \emph{value}. O \emph{tag} serve como um identificador para 
-  a localização do vértice na estrutura da Matriz (para mais informações olhar a seção [\ref{sec:matriz}]).
-  O \emph{value} está relacionado a implementação de grafos ponderados.
-
-  Entre as funções presentes na classe, se encontra os sets e os gets, um construtor para Vertice e o 
-  print.
+  onde foi necessário implementar duas maneiras diferentes de enumerar todos os ciclos dentro de um grafo não direcionado: permutação e caminhamento. O objetivo final 
+  deste relatório, é de descrever toda a implementação do grafo e da resolução do problema, assim como comparar ambos os algoritmos 
+  em questão do desempenho.
 
   \section{Grafo}
 
@@ -89,10 +54,10 @@
   Para armazenar os vertíces, foi escolhido utilizar o std::vector, pois além dele ser uma estrutura mais 
   flexível ele possui acesso direto do index do array a partir da função .at().
 
-  No caso das arestas foi utilizado uma matriz para o armazenamento. Isso deve ao fato dela ser flexível, 
-  possibilitando a ligação do par de vertíces ao qual ela é originada.
+  No caso das arestas foi utilizado uma matriz para o armazenamento das relações de adjacência. Isso deve 
+  ao fato dela ser flexível, possibilitando a ligação do par de vertíces ao qual ela é originada.
 
-  Entre as funcionalidades da classe, se encontram na seção abaixo
+  Entre as funcionalidades da classe, se encontram na seção abaixo as mais importantes
 
   \subsection{add\_vertex}
   
@@ -107,7 +72,7 @@
 
   \subsection{print}
 
-  Função que da print nos valores dos vertíces e das arestas.
+  Função que imprime na tela a quantidade de vertices, arestas, além das relações entre as vértices.
 
   \section{Matriz} \label{sec:matriz}
 

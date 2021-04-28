@@ -160,7 +160,7 @@
         //Mark current vertex as visited
         colour->at(index) = YELLOW;
         
-        std::cout << "curr_index = " << index << std::endl;
+        //std::cout << "curr_index = " << index << std::endl;
 
         //Start adj std::vector
         std::vector<counter> curr_vertex_adj = this->adj.at(index); 
@@ -212,11 +212,11 @@
                 for(int i = 0 ; i < curr_vertex_adj.size() ; i++) 
 
                     //if adj vertex hasn't been visited
-                    if(colour.at(curr_vertex_adj.at(i)) == WHITE) {
+                    if(colour.at(curr_vertex_adj.at(i)) == WHITE) 
                         //mark to be visited in the next iterations of the loop
 
                         queue.push_back(curr_vertex_adj.at(i));
-                    }
+                    
 
                 //mark the curr_vertex as completed
                 colour.at(curr_vert) = RED;
