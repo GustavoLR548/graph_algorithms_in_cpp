@@ -33,7 +33,7 @@ class Graph {
         void add_adj(counter first,counter last);
         // Visit a specific vertex and verify the color of the adjs
         //This is a function only used in depth first search
-        void visit_vertex(counter index, std::vector<counter>* colour);
+        counter visit_vertex(counter index,counter parent, std::vector<counter>* colour);
         //Verify if a certain vertex exists
         bool has_vertex(counter id);
 
@@ -74,7 +74,7 @@ class Graph {
          *  YELLOW: Visited, but there's still adjacents to visit 
          *  RED: Visited, along with the adjacents
          */
-        bool depth_first_search(counter first);
+        counter depth_first_search(counter first);
 
         /** Make a Breadth First Search in the Graph
          * 

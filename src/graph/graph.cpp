@@ -133,8 +133,9 @@
         this->graph->print(); 
     }
 
-    bool Graph::depth_first_search(counter first) {
+    counter Graph::depth_first_search(counter first) {
         std::vector<counter> colour;
+        counter n_cycles = 0; //store the number of cycles in the graph
 
         //Mark all vertices as : "NOT VISITED"
         for(int i = 0; i < this->vertices; i++)
@@ -151,31 +152,45 @@
                 //memory address of the 'colour' std::vector
                 //so that all recursive calls to 'visit_vertex'
                 //can update when a vertex is visited
-                visit_vertex(i,&colour);
+                n_cycles += visit_vertex(i,-1,&colour);
 
-        return true;
+        return n_cycles;
     }
 
-    void Graph::visit_vertex (counter index, std::vector<counter>* colour) {
+    counter Graph::visit_vertex (counter index,counter parent, std::vector<counter>* colour) {
+
+        int n_cycles = 0;
+
+        //If a vertex has already been fully visited
+        if(colour->at(index) == RED) 
+            return 0;
+
+        //If the vertex hasn't been completely visited
+        //it means it has found a cycle
+        if(colour->at(index) == YELLOW) {
+            n_cycles++;
+            return n_cycles;
+        }
+
         //Mark current vertex as visited
         colour->at(index) = YELLOW;
-        
-        //std::cout << "curr_index = " << index << std::endl;
 
         //Start adj std::vector
         std::vector<counter> curr_vertex_adj = this->adj.at(index); 
 
         //Loop through adj std::vector of the curr_vertex
-        for(int i = 0 ; i < curr_vertex_adj.size(); i++) 
+        for(int i = 0 ; i < curr_vertex_adj.size(); i++) {
 
-            //if adj vertex hasn't been visited
-            if(colour->at(curr_vertex_adj.at(i)) == WHITE)
-
-                //recursive call to 'visit_vertex'
-                visit_vertex(curr_vertex_adj.at(i),colour);
+            if(curr_vertex_adj.at(i) == parent) 
+                continue;
+            
+            n_cycles += visit_vertex(curr_vertex_adj.at(i),index,colour);
+        }
         
         //Mark vertex as completed
         colour->at(index) = RED;
+
+        return n_cycles;
     }
 
     bool Graph::breadth_first_search() {

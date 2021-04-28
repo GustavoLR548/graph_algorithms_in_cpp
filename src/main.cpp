@@ -15,17 +15,18 @@
 
 int main() {
 
+    //First step: read the file with the graph vertices
     int num_vertices;
     std::string line;
     std::vector<std::string> adjs; 
     std::ifstream graph_adjs("graph.txt");
 
+    //The first line is the number of vertices
     getline(graph_adjs,line);
-
     num_vertices = std::atoi(line.c_str());
 
+    //Read all of the graph adjs
     while(getline(graph_adjs,line)) adjs.push_back(line);
-
     graph_adjs.close();
     
     clear();
@@ -44,8 +45,9 @@ int main() {
     teste->print();
     
     clock_t tempo = clock();
-    teste->depth_first_search(0);
+    counter n_cycles = teste->depth_first_search(0);
     tempo = clock() - tempo;
+    std::cout << "Número de ciclos: " << n_cycles << std::endl;
     std::cout << "Tempo total: " <<((double)tempo)/((CLOCKS_PER_SEC/1000)) << std::endl;
     
     return 0;
