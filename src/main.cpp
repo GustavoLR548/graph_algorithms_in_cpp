@@ -1,8 +1,5 @@
-#include<iostream>
+#include<string.h>
 #include<fstream>
-#include<string>
-#include<vector>
-
 #include"graph/graph.cpp"
 
 
@@ -13,42 +10,46 @@
 #define clear() system("CLS")
 #endif
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    //First step: read the file with the graph vertices
-    int num_vertices;
-    std::string line;
-    std::vector<std::string> adjs; 
-    std::ifstream graph_adjs("graph.txt");
-
-    //The first line is the number of vertices
-    getline(graph_adjs,line);
-    num_vertices = std::atoi(line.c_str());
-
-    //Read all of the graph adjs
-    while(getline(graph_adjs,line)) adjs.push_back(line);
-    graph_adjs.close();
-    
     clear();
 
-    Graph* teste = new Graph(num_vertices);
-
-    for(counter i = 0; i < adjs.size(); i++) {
-        int delimiter_pos= adjs.at(i).find(",");
-        
-        counter start = std::atoi(adjs.at(i).substr(0,delimiter_pos).c_str());
-        counter end   = std::atoi(adjs.at(i).substr(delimiter_pos+1,adjs.at(i).size()).c_str());
-
-        teste->add_edge(start,end);
+    if(argc <= 2) {
+        std::cerr << "[ERROR]: Not enough paramaters!\n"<< std::endl;
+        return 0;
     }
 
-    teste->print();
+    int n = std::atoi(argv[1]);
     
-    clock_t tempo = clock();
-    counter n_cycles = teste->depth_first_search(0);
-    tempo = clock() - tempo;
-    std::cout << "Número de ciclos: " << n_cycles << std::endl;
-    std::cout << "Tempo total: " <<((double)tempo)/((CLOCKS_PER_SEC/1000)) << std::endl;
+    std::ofstream results("results.txt");
+
+    for(int i = 2; i < argc; i++) {
+
+        if(strstr(argv[i],".txt") == NULL) {
+            std::cerr << "[ERROR]: \"" << argv[i] << "\" is not a text file path \n"<< std::endl;
+            return 0;
+        }
+
+        clock_t sum;
+
+        for (int j = 0 ; j < n ; j++ ) {
+            Graph* teste = new Graph(argv[i]);
+
+            teste->print();
+            
+            clock_t time = clock();
+            teste->depth_first_search(0);
+            time = clock() - time;
+
+            sum += time;
+        }
+        double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
+
+        results << "Graph[" << i - 2 << "]" << std::endl;
+        results << "path: " << argv[i] << std::endl;
+        results << "Total time: " << total_time << "s" << std::endl;
+        results << "Average time : " << total_time/n << "s" << std::endl;
+    }
     
     return 0;
 }

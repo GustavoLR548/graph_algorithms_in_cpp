@@ -45,6 +45,8 @@ class Graph {
         Graph();
         //Start the Graph with 'vertices' number of vertices
         Graph(counter vertices = 3);
+        //Read a graph from a text file
+        Graph(const char* path);
         //Descontructor
         ~Graph();
 
@@ -75,16 +77,6 @@ class Graph {
          *  RED: Visited, along with the adjacents
          */
         counter depth_first_search(counter first);
-
-        /** Make a Breadth First Search in the Graph
-         * 
-         *  Significance of the colours:
-         * 
-         *  WHITE: Not explored
-         *  YELLOW: Visited, but there's still adjacents to visit 
-         *  RED: Visited, along with the adjacents
-         */
-        bool breadth_first_search();
 };
 
 #endif

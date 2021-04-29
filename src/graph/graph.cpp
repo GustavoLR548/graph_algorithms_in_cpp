@@ -1,5 +1,6 @@
 #include "graph.hpp"
 #include<iostream>
+#include<fstream>
 #include <array> 
 /*
 * Implementing the graph class
@@ -20,7 +21,7 @@
     // Start the graph matrix with a set size
     Graph::Graph(counter v) {
 
-        //Starting the matrix with EMPTY value
+        //Starting the matrix with EMPTY value##
         weight default_value = EMPTY;
         this->graph          = new Matrix<weight>(v,default_value);
     
@@ -29,6 +30,41 @@
 
         for(int i =0 ; i < v; i++) 
             add_vertex();
+    }
+
+    Graph::Graph(const char* path) {
+
+        //First step: read the file with the graph vertices
+        weight default_value = EMPTY;
+
+        this->edges    = 0;
+        this->vertices = 0;
+
+        int num_vertices;
+        std::string line;
+        std::vector<std::string> adjs; 
+        std::ifstream graph_adjs(path);
+
+        //The first line is the number of vertices
+        getline(graph_adjs,line);
+        num_vertices = std::atoi(line.c_str());
+        this->graph  = new Matrix<weight>(num_vertices,default_value);
+
+        for(int i =0 ; i < num_vertices; i++) 
+            add_vertex();
+
+        //Read all of the graph adjs
+        while(getline(graph_adjs,line)) adjs.push_back(line);
+        graph_adjs.close();
+
+        for(counter i = 0; i < adjs.size(); i++) {
+            int delimiter_pos= adjs.at(i).find(",");
+            
+            counter start = std::atoi(adjs.at(i).substr(0,delimiter_pos).c_str());
+            counter end   = std::atoi(adjs.at(i).substr(delimiter_pos+1,adjs.at(i).size()).c_str());
+
+            add_edge(start,end);
+        }
     } 
 
     Graph::~Graph() {
@@ -191,52 +227,4 @@
         colour->at(index) = RED;
 
         return n_cycles;
-    }
-
-    bool Graph::breadth_first_search() {
-        std::vector<counter> colour;
-
-        //Mark all vertices as : "NOT VISITED"
-        for(int i = 0; i < this->vertices; i++)
-            colour.push_back(WHITE);
-
-        //Start the queue with the first vertice of the graph
-        std::vector<counter> queue;
-        queue.push_back(0);
-
-        //While the queue is not empty
-        while(queue.size() > 0) {
-
-            //Remove the first element of the queue 
-            //and store it in a variable
-            counter curr_vert = *queue.begin();
-            queue.erase(queue.begin());
-
-            //If the element is not visited
-            if(colour.at(curr_vert) == WHITE) {
-
-                //Mark as visited
-                colour.at(curr_vert) = YELLOW;
-
-                std::cout << "curr_index = " << curr_vert << std::endl;
-
-                //Start adj std::vector
-                std::vector<counter> curr_vertex_adj = this->adj.at(curr_vert); 
-
-                //Loop through adj std::vector of the curr_vertex
-                for(int i = 0 ; i < curr_vertex_adj.size() ; i++) 
-
-                    //if adj vertex hasn't been visited
-                    if(colour.at(curr_vertex_adj.at(i)) == WHITE) 
-                        //mark to be visited in the next iterations of the loop
-
-                        queue.push_back(curr_vertex_adj.at(i));
-                    
-
-                //mark the curr_vertex as completed
-                colour.at(curr_vert) = RED;
-            }
-        }
-
-        return true;
     }
