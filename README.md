@@ -2,10 +2,9 @@
 
 ![shield](https://img.shields.io/badge/license-MIT-green)
 
-This github repository was created to implement graphs in cpp, in order to count the number of cicles using
+This github repository was created to implement graphs in cpp, in order to count the number of cicles using:
 
-### Objectives:
-- [ ] Walk 
+- [x] Walk 
 - [ ] Permutation
 
 # How to use this repository
