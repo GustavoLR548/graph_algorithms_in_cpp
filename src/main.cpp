@@ -10,12 +10,19 @@
 #define clear() system("CLS")
 #endif
 
+void test(int argc, char *argv[]);
+
 int main(int argc, char *argv[]) {
 
     clear();
 
     if(argc <= 2) {
         std::cerr << "[ERROR]: Not enough paramaters!\n"<< std::endl;
+        return 0;
+    }
+
+    if(strcmp(argv[1],"test") == 0) {
+        test(argc,argv);
         return 0;
     }
 
@@ -52,5 +59,11 @@ int main(int argc, char *argv[]) {
     }
     
     return 0;
+}
+
+void test(int argc, char *argv[]) {
+
+    Graph* teste = new Graph(argv[2]);
+    teste->kruskal();
 }
 

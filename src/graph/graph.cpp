@@ -69,8 +69,6 @@
             counter end   = std::atoi(adjs.at(i).substr(delimiter_pos+1,delimiter_pos2).c_str());
             weight w      = std::atoi(adjs.at(i).substr(delimiter_pos2+1,adjs.at(i).size()).c_str());
 
-            std::cout << "weight value: " << w << std::endl;
-
             add_edge(start,end,w);
         }
     } 
@@ -163,11 +161,9 @@
         std::cout << "\nLists of Adjs:\n"; 
 
         for(int i = 0; i < adj.size(); i++) {
-            std::vector<counter> it = this->adj.at(i);
-            std::vector<counter> :: iterator v;
             std::cout << "v[" << i << "] :"; 
-            for(v = it.begin(); v != it.end() ;++v) {
-                std::cout << ' ' << *v; 
+            for(auto j = this->adj.at(i).begin(); j != this->adj.at(i).end() ;++j) {
+                std::cout << ' ' << *j; 
             }
             std::cout << '\n'; 
         } 
@@ -235,4 +231,16 @@
         colour->at(index) = RED;
 
         return n_cycles;
+    }
+
+    counter Graph::kruskal() {
+        for(int i = 0; i < adj.size(); i++) {
+            std::cout << "v[" << i << "] :"; 
+            for(auto j = this->adj.at(i).begin(); j != this->adj.at(i).end() ;++j) {
+                std::cout << ' ' << *j; 
+            }
+            std::cout << '\n'; 
+        } 
+
+        return 0;
     }

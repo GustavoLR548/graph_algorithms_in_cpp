@@ -68,7 +68,8 @@ class Graph {
 
         // Special algorithms
 
-        /** Make a Depth First Search in the Graph
+        /** Make a Depth First Search in the Graph and 
+         * count all of the cycles inside of such Graph
          * 
          *  Significance of the colours:
          * 
@@ -77,6 +78,12 @@ class Graph {
          *  RED: Visited, along with the adjacents
          */
         counter depth_first_search(counter first);
-};
+
+        /** Kruskal's Algorythm, with a method to count cycles
+         * 
+         * 
+        */
+        counter kruskal();
+};      
 
 #endif
