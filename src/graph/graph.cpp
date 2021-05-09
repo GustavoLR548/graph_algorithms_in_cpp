@@ -58,12 +58,20 @@
         graph_adjs.close();
 
         for(counter i = 0; i < adjs.size(); i++) {
+
+            if(adjs.at(i).size() == 0) 
+                continue;
+            
             int delimiter_pos= adjs.at(i).find(",");
+            int delimiter_pos2= adjs.at(i).find(",",delimiter_pos+1);
             
             counter start = std::atoi(adjs.at(i).substr(0,delimiter_pos).c_str());
-            counter end   = std::atoi(adjs.at(i).substr(delimiter_pos+1,adjs.at(i).size()).c_str());
+            counter end   = std::atoi(adjs.at(i).substr(delimiter_pos+1,delimiter_pos2).c_str());
+            weight w      = std::atoi(adjs.at(i).substr(delimiter_pos2+1,adjs.at(i).size()).c_str());
 
-            add_edge(start,end);
+            std::cout << "weight value: " << w << std::endl;
+
+            add_edge(start,end,w);
         }
     } 
 
