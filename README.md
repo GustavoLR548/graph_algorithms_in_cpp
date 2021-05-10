@@ -5,7 +5,8 @@
 This github repository was created to implement graphs in cpp, in order to count the number of cicles using:
 
 - [x] Walk 
-- [ ] Permutation
+- [x] Permutation
+- [ ] Documentation 
 
 # How to use this repository
 
