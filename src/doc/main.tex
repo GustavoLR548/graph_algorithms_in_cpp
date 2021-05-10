@@ -47,83 +47,85 @@
 
 \begin{document} 
 
-\maketitle
+  \maketitle
 
-\begin{abstract} 
-  This document serves as a report on the study in two different ways
-  to enumerate cycles within a graph: permutation and walking. For this
-  study, we only work with non-directed graphs. In order to test the effiency 
-  of both algorythms,we also implemented a method to calculate the performance of walking
-  X permutation as the graph increases.
-\end{abstract}
+  \begin{abstract} 
+    This document serves as a report on the study in two different ways
+    to enumerate cycles within a graph: permutation and walking. For this
+    study, we only work with non-directed graphs. In order to test the effiency 
+    of both algorythms,we also implemented a method to calculate the performance of walking
+    X permutation as the graph increases.
+  \end{abstract}
 
-\begin{resumo} 
-  Este documento serve é um relatório sobre o estudo em duas maneiras 
-  diferentes de enumerar ciclos dentro de um grafo: permutação e por caminhamento. Para esse 
-  estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos um método
-  para calcular o desempenho do caminhamento e da permutação, na medida que o grafo aumentasse.
-\end{resumo}
+  \begin{resumo} 
+    Este documento serve é um relatório sobre o estudo em duas maneiras 
+    diferentes de enumerar ciclos dentro de um grafo: permutação e por caminhamento. Para esse 
+    estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos um método
+    para calcular o desempenho do caminhamento e da permutação, na medida que o grafo aumentasse.
+  \end{resumo}
 
 
-\section{Informações gerais}
+  \section{Informações gerais}
 
-  Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a 
-  \emph{Pontifícia Universidade Católica de Minas Gerais}, onde foi necessário 
-  implementar duas maneiras diferentes de enumerar todos os ciclos dentro de um 
-  grafo não direcionado: permutação e caminhamento. O objetivo final  deste relatório, 
-  é de descrever toda a implementação do grafo e da resolução do problema, assim como 
-  comparar ambos os algoritmos em questão do desempenho.
+    Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a 
+    \emph{Pontifícia Universidade Católica de Minas Gerais}, onde foi necessário 
+    implementar duas maneiras diferentes de enumerar todos os ciclos dentro de um 
+    grafo não direcionado: permutação e caminhamento. O objetivo final  deste relatório, 
+    é de descrever toda a implementação do grafo e da resolução do problema, assim como 
+    comparar ambos os algoritmos em questão do desempenho.
 
-  Na seção \ref{sec:graph}, detalhamos a estrutura de grafo que foi usada para essa atividade,
-  assim também como os seus principais componentes. Em \ref{sec:permutation} e \ref{sec:walking},
-  detalhamos como implementos os nossos algoritmos de permutação e caminhamento respectivamente.
-  A seção \ref{sec:performance} é a demonstração da performance dos códigos, assim como também 
-  os grafos utilizados para os testes e como fizemos os testes. Por fim, na seção \ref{sec:conclusion}
-  concluímos o trabalho com nossas perspectivas.
+    Na seção \ref{sec:graph}, detalhamos a estrutura de grafo que foi usada para essa atividade,
+    assim também como os seus principais componentes. Em \ref{sec:permutation} e \ref{sec:walking},
+    detalhamos como implementos os nossos algoritmos de permutação e caminhamento respectivamente.
+    A seção \ref{sec:performance} é a demonstração da performance dos códigos, assim como também 
+    os grafos utilizados para os testes e como fizemos os testes. Por fim, na seção \ref{sec:conclusion}
+    concluímos o trabalho com nossas perspectivas.
 
   \section{Grafo} \label{sec:graph}
 
-  Para maior organizações, todas as classes implementadas possuem um header (arquivo .hpp)
-  e o grafo não é uma exceção. Em graph.hpp é colocado todas as variáveis, assim também como as 
-  funções usadas pelo grafo. Em graph.cpp, todas as declarações feitas no arquivo .hpp, são 
-  implementadas.
-  
-  Para o nosso próposito, apenas duas estruturas foram usadas para guardar informações sobre
-  o grafo: primeiro temos um vetor , com um vetor de indíces. A ideia é colocar listas flexíveis,
-  onde cada posição representa os adjacentes de determinada vértice. Essa estrutura é muito
-  importante para a permutação. 
-
-  \begin{lstlisting}[language=c++]
+    Para maior organizações, todas as classes implementadas possuem um header (arquivo .hpp)
+    e o grafo não é uma exceção. Em graph.hpp é colocado todas as variáveis, assim também como as 
+    funções usadas pelo grafo. Em graph.cpp, todas as declarações feitas no arquivo .hpp, são 
+    implementadas.
     
-    std::vector<std::vector<counter>> adj;
-  \end{lstlisting}
+    Para o nosso próposito, apenas duas estruturas foram usadas para guardar informações sobre
+    o grafo: primeiro temos um vetor , com um vetor de indíces. A ideia é colocar listas flexíveis,
+    onde cada posição representa os adjacentes de determinada vértice. Essa estrutura é muito
+    importante para a permutação. 
 
-  Para o caminhamento, utilizamos também um vetor, porém um vetor com um par(std::pair): 
-  o primeiro é o peso, o segundo é outro par, porém este possui a vértice de entrada(source)
-  e destino(destination). Basicamente esta estrutura guarda as relações entre as arestas 
-  do grafo, assim como o peso dessas relações.
+    \begin{lstlisting}[language=c++]
+      
+      std::vector<std::vector<counter>> adj;
+    \end{lstlisting}
 
-  \begin{lstlisting}[language=c++]
-    
-    std::vector<std::pair<weight,std::pair<counter,counter>>> edges_weights;
-  \end{lstlisting}
+    Para o caminhamento, utilizamos também um vetor, porém um vetor com um par(std::pair): 
+    o primeiro é o peso, o segundo é outro par, porém este possui a vértice de entrada(source)
+    e destino(destination). Basicamente esta estrutura guarda as relações entre as arestas 
+    do grafo, assim como o peso dessas relações.
 
-  Os outros dois atributos referem-se apenas aos contadores de vértices e arestas.
+    \begin{lstlisting}[language=c++]
+      
+      std::vector<std::pair<weight,std::pair<counter,counter>>> edges_weights;
+    \end{lstlisting}
 
-  Com todos os atributos mencionados, agora vamos para as principais funções do grafo:
+    Os outros dois atributos referem-se apenas aos contadores de vértices e arestas.
+
+    Com todos os atributos mencionados, agora vamos para as principais funções do grafo:
 
   \subsection{Construtores}
 
-  Nosso grafo possui três construtores:
+    Nosso grafo possui três construtores:
 
-  \begin{itemize}
-    \item O primeiro apenas inicia o grafo, sem nenhum vértice. 
-    \item O segundo construtor inicia o grafo com N número de vértices, porém, sem arestas,
-    logo é criado um grafo nulo
-    \item O terceiro construtor foi feito para a realização dos testes. Ele pega informações do
-    grafo a partir de um arquivo .txt, sendo a primeira linha o número de vértices e as linhas 
-    seguintes contendo as arestas, assim como os pesos(se tiver).
-  \end{itemize}
+    \begin{itemize}
+      \item O primeiro apenas inicia o grafo, sem nenhum vértice. 
+      \item O segundo construtor inicia o grafo com N número de vértices, porém, sem arestas,
+      logo é criado um grafo nulo
+      \item O terceiro construtor foi feito para a realização dos testes. Ele pega informações do
+      grafo a partir de um arquivo .txt, sendo a primeira linha o número de vértices e as linhas 
+      seguintes contendo as arestas, assim como os pesos(se tiver).
+    \end{itemize}
+
+  \subsection{getters}
 
   \subsection{add\_vertex}
 

@@ -217,25 +217,37 @@
 
     counter Graph::kruskal() {
 
+        //sort the edges by their weights
         std::sort(edges_weights.begin(), edges_weights.end());
+
         counter n_cycles = 0;
 
+        //Start the disjointSets with the number of vertices
         DisjoinSets ds(this->vertices);
     
         for (auto it=edges_weights.begin(); it!=edges_weights.end(); it++) {
+
+            //in the current iteration of the array
+            //store the first, and last vertex
             int source      = it->second.first;
             int destination = it->second.second;
     
-            int set_u = ds.find(source);
-            int set_v = ds.find(destination);
+            //get the parent of said vertexes
+            int parent_source      = ds.find(source);
+            int parent_destination = ds.find(destination);
 
-            if (set_u != set_v) 
-                ds.merge(set_u, set_v);
-            else 
+            //If the parents aren't the same, merge
+            //these two in the array
+            if (parent_source != parent_destination) 
+                ds.merge(parent_source, parent_destination);
+
+            else //if parent_source == parent_destination
+                //In this case, adding the edge will form 
+                //a cycle, so instead of adding said edge,
+                //we just increse the variable
                 n_cycles++;
 
         }
-
 
         return n_cycles;
     }

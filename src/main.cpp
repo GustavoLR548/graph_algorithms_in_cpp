@@ -16,13 +16,18 @@ int main(int argc, char *argv[]) {
 
     clear();
 
-    if(argc <= 3) {
+    if(argc <= 2) {
         std::cerr << "[ERROR]: Not enough paramaters!\n"<< std::endl;
         return 0;
     }
 
     if(strcmp(argv[1],"test") == 0) {
         test(argc,argv);
+        return 0;
+    }
+
+    if(argc <= 3) {
+        std::cerr << "[ERROR]: Not enough paramaters!\n"<< std::endl;
         return 0;
     }
 
