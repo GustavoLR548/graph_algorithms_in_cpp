@@ -83,10 +83,6 @@
         return this->edges;
     }
 
-    bool Graph::has_neighbors(counter index) {
-        return this->adj.size() < index && this->adj.at(index).size() != 0;
-    }
-
     counter Graph::add_vertex() {
         counter result = -1;
         counter pos    = this->vertices;
@@ -237,6 +233,7 @@
                 ds.merge(set_u, set_v);
             else 
                 n_cycles++;
+
         }
 
 

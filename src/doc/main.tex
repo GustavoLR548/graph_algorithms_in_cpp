@@ -1,12 +1,38 @@
 \documentclass[12pt]{article}
 
 \usepackage{sbc-template}
-
 \usepackage{graphicx,url}
 
-%\usepackage[brazil]{babel}   
-\usepackage[utf8]{inputenc}  
+\usepackage{listings}
+\usepackage{xcolor}
 
+\usepackage[utf8]{inputenc}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
      
 \sloppy
 
@@ -57,17 +83,53 @@
 
   \section{Grafo} \label{sec:graph}
 
-  A classe graph.cpp é onde ocorre a maior parte das operações
+  Para maior organizações, todas as classes implementadas possuem um header (arquivo .hpp)
+  e o grafo não é uma exceção. Em graph.hpp é colocado todas as variáveis, assim também como as 
+  funções usadas pelo grafo. Em graph.cpp, todas as declarações feitas no arquivo .hpp, são 
+  implementadas.
   
-  Para armazenar os vertíces, foi escolhido utilizar o std::vector, pois além 
-  dele ser uma estrutura mais flexível ele possui acesso direto do index do 
-  array a partir da função .at().
+  Para o nosso próposito, apenas duas estruturas foram usadas para guardar informações sobre
+  o grafo: primeiro temos um vetor , com um vetor de indíces. A ideia é colocar listas flexíveis,
+  onde cada posição representa os adjacentes de determinada vértice. Essa estrutura é muito
+  importante para a permutação. 
 
-  No caso das arestas foi utilizado uma matriz para o armazenamento das 
-  relações de adjacência. Isso deve ao fato dela ser flexível, possibilitando
-  a ligação do par de vertíces ao qual ela é originada.
+  \begin{lstlisting}[language=c++]
+    
+    std::vector<std::vector<counter>> adj;
+  \end{lstlisting}
 
-  Entre as funcionalidades da classe, se encontram na seção abaixo as mais importantes
+  Para o caminhamento, utilizamos também um vetor, porém um vetor com um par(std::pair): 
+  o primeiro é o peso, o segundo é outro par, porém este possui a vértice de entrada(source)
+  e destino(destination). Basicamente esta estrutura guarda as relações entre as arestas 
+  do grafo, assim como o peso dessas relações.
+
+  \begin{lstlisting}[language=c++]
+    
+    std::vector<std::pair<weight,std::pair<counter,counter>>> edges_weights;
+  \end{lstlisting}
+
+  Os outros dois atributos referem-se apenas aos contadores de vértices e arestas.
+
+  Com todos os atributos mencionados, agora vamos para as principais funções do grafo:
+
+  \subsection{Construtores}
+
+  Nosso grafo possui três construtores:
+
+  \begin{itemize}
+    \item O primeiro apenas inicia o grafo, sem nenhum vértice. 
+    \item O segundo construtor inicia o grafo com N número de vértices, porém, sem arestas,
+    logo é criado um grafo nulo
+    \item O terceiro construtor foi feito para a realização dos testes. Ele pega informações do
+    grafo a partir de um arquivo .txt, sendo a primeira linha o número de vértices e as linhas 
+    seguintes contendo as arestas, assim como os pesos(se tiver).
+  \end{itemize}
+
+  \subsection{add\_vertex}
+
+  \subsection{add\_edge}
+
+  \subsection{print}
 
   \section{Permutação} \label{sec:permutation}
 

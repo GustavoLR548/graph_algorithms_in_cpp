@@ -50,6 +50,12 @@ class Graph {
         //Read a graph from a text file
         Graph(const char* path);
 
+        // get number of vertices of the graph
+        counter vertices_num();  
+
+        // get number of edges of the graph
+        counter edges_num();
+
         //Basic graph operations
         
         /** Add a new Edge, by giving the coordenates of the first and last vertex
@@ -58,16 +64,8 @@ class Graph {
          */ 
         bool add_edge(counter first, counter last, weight weight = 0);
 
-        bool has_neighbors(counter index);
-
         // Add a new Vertex to the graph and return if it is successful 
         counter add_vertex();
-
-        // get number of vertices of the graph
-        counter vertices_num();  
-
-        // get number of edges of the graph
-        counter edges_num();
 
         // Print all data about the graph
         virtual void print();  
