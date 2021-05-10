@@ -1,7 +1,10 @@
 #include "graph.hpp"
+#include "disjoinSet/ds.cpp"
+
 #include<iostream>
 #include<fstream>
 #include <array> 
+#include<bits/stdc++.h>
 /*
 * Implementing the graph class
 *  v0.1
@@ -12,7 +15,6 @@
 
         //Starting the matrix with EMPTY value
         weight default_value = EMPTY;
-        this->graph          = new Matrix<weight>(3,default_value);
 
         this->vertices = 0;
         this->edges    = 0;
@@ -23,8 +25,7 @@
 
         //Starting the matrix with EMPTY value##
         weight default_value = EMPTY;
-        this->graph          = new Matrix<weight>(v,default_value);
-    
+        
         this->edges    = 0;
         this->vertices = 0;
 
@@ -48,7 +49,6 @@
         //The first line is the number of vertices
         getline(graph_adjs,line);
         num_vertices = std::atoi(line.c_str());
-        this->graph  = new Matrix<weight>(num_vertices,default_value);
 
         for(int i =0 ; i < num_vertices; i++) 
             add_vertex();
@@ -73,10 +73,6 @@
         }
     } 
 
-    Graph::~Graph() {
-        free(this->graph);
-    }
-
     //Return the number of vertices the graph has
     counter Graph::vertices_num() {
         return this->vertices;
@@ -87,18 +83,16 @@
         return this->edges;
     }
 
+    bool Graph::has_neighbors(counter index) {
+        return this->adj.size() < index && this->adj.at(index).size() != 0;
+    }
+
     counter Graph::add_vertex() {
         counter result = -1;
         counter pos    = this->vertices;
 
-       // std::cout<< "[Graph]: verifying if there is enough space..." << std::endl;
-
-        if(!has_space()) 
-            this->graph->expand_matrix(1,EMPTY);
-
        //std::cout<< "[Graph]: Ok! Inserting on matriz..." << std::endl;
 
-        this->graph->insert(pos,pos,pos);
         result = this->vertices;
         this->vertices++;
 
@@ -112,25 +106,14 @@
         return result;
     }
 
-    bool Graph::has_space(){
-        bool result = false;
-
-        if(this->vertices < this->graph->get_number_of_columns()) {
-            result = true;
-        }
-
-        return result;
-    }
-
     // Add a new Edge to the graph and return if the operation was a success
     bool Graph::add_edge(counter first, counter last, weight value) {
         bool result = false;
 
         if(has_vertex(first) && has_vertex(last)) {
-            this->graph->insert(value,first,last);
-            this->graph->insert(value,last,first);
             this->edges++;
 
+            this->edges_weights.push_back({value,{first,last}});
             add_adj(first, last);
             add_adj(last, first);
             result = true;
@@ -142,7 +125,7 @@
     bool Graph::has_vertex(counter id){
         bool result = false;
 
-        if(id < this->graph->get_number_of_columns()) 
+        if(id < this->adj.size()) 
             result = true;
 
         return result;
@@ -168,9 +151,12 @@
             std::cout << '\n'; 
         } 
 
-        std::cout << "\nMatriz of Adjs:\n"; 
+        std::cout << "\nLists of edges:\n"; 
 
-        this->graph->print(); 
+        for(auto i = edges_weights.begin(); i != edges_weights.end(); i++) 
+            std::cout<< "edges: " << i->second.first << "," << i->second.second << "\t weight: " << i->first << std::endl;
+        
+
     }
 
     counter Graph::depth_first_search(counter first) {
@@ -234,13 +220,25 @@
     }
 
     counter Graph::kruskal() {
-        for(int i = 0; i < adj.size(); i++) {
-            std::cout << "v[" << i << "] :"; 
-            for(auto j = this->adj.at(i).begin(); j != this->adj.at(i).end() ;++j) {
-                std::cout << ' ' << *j; 
-            }
-            std::cout << '\n'; 
-        } 
 
-        return 0;
+        std::sort(edges_weights.begin(), edges_weights.end());
+        counter n_cycles = 0;
+
+        DisjoinSets ds(this->vertices);
+    
+        for (auto it=edges_weights.begin(); it!=edges_weights.end(); it++) {
+            int source      = it->second.first;
+            int destination = it->second.second;
+    
+            int set_u = ds.find(source);
+            int set_v = ds.find(destination);
+
+            if (set_u != set_v) 
+                ds.merge(set_u, set_v);
+            else 
+                n_cycles++;
+        }
+
+
+        return n_cycles;
     }

@@ -8,7 +8,6 @@
 #define RED    2
 
 #include <vector>
-#include "matrix_cpp/matrix.cpp"
 
 using weight  = int;
 using counter = uint16_t;
@@ -21,19 +20,20 @@ class Graph {
         counter vertices;
         counter edges;
 
-
-        Matrix<weight>* graph;
         std::vector<std::vector<counter>> adj;
-
+        std::vector<std::pair<weight,std::pair<counter,counter>>> edges_weights;
         //Functions:
 
         // Checks if the graph matrix have space, if does not, expand the matrix
         bool has_space();
         // Add a 'last' vertex to be adj to 'first'
+
         void add_adj(counter first,counter last);
         // Visit a specific vertex and verify the color of the adjs
         //This is a function only used in depth first search
+
         counter visit_vertex(counter index,counter parent, std::vector<counter>* colour);
+
         //Verify if a certain vertex exists
         bool has_vertex(counter id);
 
@@ -43,12 +43,12 @@ class Graph {
 
         //Start the Graph with three empty vertices
         Graph();
+
         //Start the Graph with 'vertices' number of vertices
         Graph(counter vertices = 3);
+
         //Read a graph from a text file
         Graph(const char* path);
-        //Descontructor
-        ~Graph();
 
         //Basic graph operations
         
@@ -57,12 +57,18 @@ class Graph {
          *  Edge, but if not specified, the 'weight' will be 0 )
          */ 
         bool add_edge(counter first, counter last, weight weight = 0);
+
+        bool has_neighbors(counter index);
+
         // Add a new Vertex to the graph and return if it is successful 
         counter add_vertex();
+
         // get number of vertices of the graph
         counter vertices_num();  
+
         // get number of edges of the graph
         counter edges_num();
+
         // Print all data about the graph
         virtual void print();  
 
