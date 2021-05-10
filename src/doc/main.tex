@@ -127,11 +127,25 @@
 
   \subsection{getters}
 
+    Depois dos construtores, temos as funções do tipo getters, que retornam a quantidade de vértices 
+    e de arestas dentro do grafo.
+
   \subsection{add\_vertex}
+
+    Finalmente, começando com as funcionalidades do grafo, temos a função para adicionar 
+    uma vertex isolada ao grafo, adicionando um iterator ao vector. Se a operação for um sucesso, 
+    será retornado o index da vértice adicionada.
 
   \subsection{add\_edge}
 
+    Se houver as vértices especificadas, será adicionado a nova ligação a lista de 
+    adjacência e de arestas. Se o peso não for especificado, ele será colocado como zero.
+    Por fim, a função retorna um booleano, indicando se foi um sucesso.
+
   \subsection{print}
+
+    A função print é responsável em imprimir o atual estado do grafo, tanto
+    em questão das adjacências, quanto as arestas e seus pesos.
 
   \section{Permutação} \label{sec:permutation}
 

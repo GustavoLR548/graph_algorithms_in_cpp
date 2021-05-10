@@ -109,7 +109,10 @@
         if(has_vertex(first) && has_vertex(last)) {
             this->edges++;
 
-            this->edges_weights.push_back({value,{first,last}});
+            auto edges_pair        = std::make_pair(first,last);
+            auto weight_edges_pair = std::make_pair(value,edges_pair);
+
+            this->edges_weights.push_back(weight_edges_pair);
             add_adj(first, last);
             add_adj(last, first);
             result = true;
