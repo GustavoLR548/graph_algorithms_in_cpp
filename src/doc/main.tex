@@ -26,89 +26,54 @@
 \begin{abstract} 
   This document serves as a report on the study in two different ways
   to enumerate cycles within a graph: permutation and walking. For this
-  study, we only work with non-directed graphs. So we did the implementation
-  of the code in C++, as well as we did a method to calculate the performance of these
-  methods as the graph increases.
+  study, we only work with non-directed graphs. In order to test the effiency 
+  of both algorythms,we also implemented a method to calculate the performance of walking
+  X permutation as the graph increases.
 \end{abstract}
 
 \begin{resumo} 
-  Este documento serve para fazer como um relatório sobre o estudo em duas maneiras 
+  Este documento serve é um relatório sobre o estudo em duas maneiras 
   diferentes de enumerar ciclos dentro de um grafo: permutação e por caminhamento. Para esse 
-  estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos a implementação 
-  do código em C++, assim também como fizemos um método para calcular o desempenho desses 
-  métodos, na medida que o grafo aumentasse.
+  estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos um método
+  para calcular o desempenho do caminhamento e da permutação, na medida que o grafo aumentasse.
 \end{resumo}
 
 
 \section{Informações gerais}
 
-  Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a \emph{Pontifícia Universidade Católica de Minas Gerais},
-  onde foi necessário implementar duas maneiras diferentes de enumerar todos os ciclos dentro de um grafo não direcionado: permutação e caminhamento. O objetivo final 
-  deste relatório, é de descrever toda a implementação do grafo e da resolução do problema, assim como comparar ambos os algoritmos 
-  em questão do desempenho.
+  Este é um trabalho feita para a disciplina de Algoritmo em Grafos, para a 
+  \emph{Pontifícia Universidade Católica de Minas Gerais}, onde foi necessário 
+  implementar duas maneiras diferentes de enumerar todos os ciclos dentro de um 
+  grafo não direcionado: permutação e caminhamento. O objetivo final  deste relatório, 
+  é de descrever toda a implementação do grafo e da resolução do problema, assim como 
+  comparar ambos os algoritmos em questão do desempenho.
 
-  \section{Grafo}
+  Na seção \ref{sec:graph}, detalhamos a estrutura de grafo que foi usada para essa atividade,
+  assim também como os seus principais componentes. Em \ref{sec:permutation} e \ref{sec:walking},
+  detalhamos como implementos os nossos algoritmos de permutação e caminhamento respectivamente.
+  A seção \ref{sec:performance} é a demonstração da performance dos códigos, assim como também 
+  os grafos utilizados para os testes e como fizemos os testes. Por fim, na seção \ref{sec:conclusion}
+  concluímos o trabalho com nossas perspectivas.
+
+  \section{Grafo} \label{sec:graph}
 
   A classe graph.cpp é onde ocorre a maior parte das operações
   
-  Para armazenar os vertíces, foi escolhido utilizar o std::vector, pois além dele ser uma estrutura mais 
-  flexível ele possui acesso direto do index do array a partir da função .at().
+  Para armazenar os vertíces, foi escolhido utilizar o std::vector, pois além 
+  dele ser uma estrutura mais flexível ele possui acesso direto do index do 
+  array a partir da função .at().
 
-  No caso das arestas foi utilizado uma matriz para o armazenamento das relações de adjacência. Isso deve 
-  ao fato dela ser flexível, possibilitando a ligação do par de vertíces ao qual ela é originada.
+  No caso das arestas foi utilizado uma matriz para o armazenamento das 
+  relações de adjacência. Isso deve ao fato dela ser flexível, possibilitando
+  a ligação do par de vertíces ao qual ela é originada.
 
   Entre as funcionalidades da classe, se encontram na seção abaixo as mais importantes
 
-  \subsection{add\_vertex}
-  
-  A função retorna um booleano, caso a operação ocorra com sucesso. Além disso verifica se o vertíce 
-  já estava presente no vector, se não dá um push\_back no mesmo.
+  \section{Permutação} \label{sec:permutation}
 
-  \subsection{add\_edge}
+  \section{Caminhamento} \label{sec:walking}
 
-  Função que retorna um booleano, caso a operação ocorra com sucesso. Verifica se o vertíce
-  já estava presente na matriz, se não expande a matriz(Verificar função de expansão na seção [\ref{sec:matriz}]).
-  No final desse processo adiciona a aresta.  
+  \section{Desempenho} \label{sec:performance}
 
-  \subsection{print}
-
-  Função que imprime na tela a quantidade de vertices, arestas, além das relações entre as vértices.
-
-  \section{Matriz} \label{sec:matriz}
-
-  A classe matrix.cpp foi criada para a utilização de busca por matriz no
-  grafo. Em alguns dos casos, fazer busca pela Matriz pode se mostrar mais 
-  interessante em uma matriz do que usando um vector.
-
-  Além disso, a matriz foi criada usando um sistema de template(T), em outras
-  palavras, esta classe possui uma abstração em relação ao conteúdo inserida
-  na mesma, o usuário pode tanto inserir um tipo de dado primitivo(int, char) ou até
-  mesmo outras classes.
-
-  Para a utilização da matriz, apenas é preciso enviar para o classe o 
-  tamanho da mesma, e então o programa irá criar dinamicamente as células.
-
-  Eis aqui algumas das funcionalidades que a matriz possui.
-
-  \subsection{get}
-
-  Para pegar o conteúdo T em alguma posição específica da matriz, se usa 
-  a função get, que recebe a posição da célula em forma de sistema cartesiano
-  (x,y), e retorna o elemento contido na posição.
-
-  \subsection{insert} 
-
-  Assim como é possivel resgatar um elemento T da matriz, é possível inserir
-  um também, usando a função insert. Da mesma forma que a função get, esta 
-  recebe a posição da célula no eixo das coordenadas e abscissas, e retorna
-  um booleano, se foi possível inserir. 
-
-  \subsection{Expandir a matriz}
-
-  Dentro da matriz existe três funções em específica, que possui a funcionalidade:
-  expandir a mesma, de acordo com a necessidade dos usuários. Vamos supor que o mesmo
-  começe com uma matrix 2x2 e queira inserir mais elementos dentro dela. Neste
-  caso, ele pode inserir esse elemento, expandido a matriz, seja de forma quadrada,
-  vertical ou horizontal.
-
+  \section{Conclusão} \label{sec:conclusion}
 \end{document}

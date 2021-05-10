@@ -1,4 +1,3 @@
-Graph[0]
 path: graph2.txt
-Total time: 0.016s
-Average time : 0.016s
+Total time: 1.24s
+Average time : 0.0124s

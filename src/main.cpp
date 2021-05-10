@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
     clear();
 
-    if(argc <= 2) {
+    if(argc <= 3) {
         std::cerr << "[ERROR]: Not enough paramaters!\n"<< std::endl;
         return 0;
     }
@@ -45,13 +45,15 @@ int main(int argc, char *argv[]) {
         clock_t time = clock();
         if(strcmp(argv[3],"kruskal") == 0) 
             teste->kruskal();
-        else 
+        else if(strcmp(argv[3],"dfs") == 0)
             teste->depth_first_search(0);
         
         time = clock() - time;
 
         sum += time;
     }
+
+    std::cout << "cheguei aq?" << std::endl;
 
     double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
 
