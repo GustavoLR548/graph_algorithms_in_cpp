@@ -2,6 +2,7 @@
 
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
+\usepackage{tikz} 
 
 \usepackage{listings}
 \usepackage{xcolor}
@@ -14,7 +15,6 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
@@ -112,7 +112,7 @@
 
     Com todos os atributos mencionados, agora vamos para as principais funções do grafo:
 
-  \subsection{Construtores}
+  \subsection{Construtores} \label{ssec:constructors}
 
     Nosso grafo possui três construtores:
 
@@ -145,13 +145,139 @@
   \subsection{print}
 
     A função print é responsável em imprimir o atual estado do grafo, tanto
-    em questão das adjacências, quanto as arestas e seus pesos.
+    em questão das adjacências, quanto as arestas e seus pesos respectivamente.
+
+  \newpage
 
   \section{Permutação} \label{sec:permutation}
 
+    Com as funcionalidades gerais do grafo especificadas, é possível agora ir para a 
+    implementação do algoritmo de permutação. Na teoria de grafos, permutação significa
+    percorrer por todas as vértices uma única vez,seguindo a ordem: [v1,a1,v2,a2...]
+
+    O algoritmo de permutação escolhido foi o busca em profundidade(também conhecido 
+    como DFS(Depth-first-search)), a idea do algoritmo é percorrer todos os vértices,
+    com o intuito de achar o vértice mais fundo.
+    
+    Em nossa implementação, o vértice inicial sempre será o "vértice raiz"(index 0), 
+    e para memorizar todas as vértices já visitadas, também é utilizado um vetor de cores,
+    onde o seu tamanho é igual ao número de vértices, e cada posição representa uma vértice do 
+    grafo. Eis as cores utilizadas e seus significados:
+
+    \begin{itemize}
+      \item WHITE: Vértice e sua vizinhança ainda não visitado 
+      \item YELLOW: Vértice visitado porém não sua vizinhança como todo
+      \item RED: Vértice visitado assim como sua vizinhança
+    \end{itemize}
+
+    Por fim, vamos dar uma olhada em quais são os passos que o código 
+    faz, para chegar ao resultado desejado:
+
+    \begin{itemize}
+      \item Iniciar vetor de cores e colocar todas as posições como WHITE
+      \item Iniciar loop por todas os vértices 
+      \item Se vértice == WHITE, visitá-lo
+      
+      Ao visitar:
+      \begin{itemize}
+        \item Se vértice visitado == RED, sair.
+        \item Se vértice visitado == YELLOW, ciclo encontrado, ++número de ciclos.
+        \item Iniciar loop por todas os vértices adjacentes ao vértice atual 
+        \item Se o vértice não for o pai da vértice atual, visitá-lo.
+      \end{itemize}
+    \end{itemize}
+
   \section{Caminhamento} \label{sec:walking}
 
+  Caminhamento é uma sequência de vertices e arestas de um grafo. Ao atravessar um grafo,
+  um caminhamento ocorre e tanto vértices quando arestas podem ser repetidas neste processo.
+
+  Existe diferentes tipos de caminhamento, porém, para os objetivos desse relatório, isto 
+  é o suficiente para entender como implementamos o nosso algoritmo escolhido, que no caso 
+  é o de Kruskal.
+
+  O algoritmo de Kruskal, inventado pelo matemático Joseph Kruskal, foi feito para buscar 
+  uma árvore geradora mínima(Minimum Spanning Tree), em um grafo conexo e que possua pesos. 
+  Então fica a pergunta: se o Kruskal serve para encontrar uma MST, então como podemos usa-lo 
+  para encontrar ciclos? 
+
+  Para responder essa pergunta: precisamos entender a lógica do algoritmo:
+
+  \begin{itemize}
+    \item Fazer uma ordenação das arestas pelo seus pesos(menor para o maior)
+    \item Criar um disjoint-set com o número de vértices do grafo 
+    \item Iniciar loop por todas as arestas
+    \item Se ligar a aresta atual não formar um ciclo
+    
+    \begin{itemize}
+      \item Adicionar aresta no disjoint-set 
+      \item Fazer merge dos conjuntos dentro do disjoint-set
+    \end{itemize}
+  \end{itemize}
+
+  Para a realização do Kruskal, ele necessita fazer a verificação se um ciclo será formado,
+  ao unir as duas arestas, logo, apenas adicionar mais uma verificação e um contador para 
+  que seja possível contar o número de ciclos.
+
+  Por fim o Disjoin-sets é uma estrutura separada do grafo, que foi criada para ser utilizada
+  apenas no Kruskal. O objetivo de se utilizar Disjoin-sets é para manter o controle dos vértices 
+  particionadas em subconjuntos, e então juntá-las a medida que for necessário.
+
   \section{Desempenho} \label{sec:performance}
+
+  Com a explicação dos grafos deixada de lado, agora será explicado como foi feito os testes de performance.
+
+  Na seção \ref{ssec:constructors}, foi detalhado os construtores do grafo. Entre eles,
+  o construtor 3 do grafo foi feito especicamente para realização dos testes. Ele 
+  recebe um char* com o diretório de um arquivo ".txt". Esse arquivo possui informações como número de 
+  vértices, as relações entre as vértices(arestas), e por fim, se tiver, o peso das arestas.
+
+  Para iniciar o programa, o usuário precisa enviar parâmetros para a função, entre esses parâmetros estão:
+
+  \begin{itemize}
+    \item A quantidade de testes a ser feito
+    \item Qual método de contagem de ciclo usar ("kruskal" ou "dfs")
+    \item O diretório para os arquivos com os grafos
+  \end{itemize}
+
+  Ao iniciar o programa com os parâmetros necessários, um número 'n' do teste especificado 
+  será realizado nos grafos inseridos, e o resultado será colocado em arquivo("results.txt").
+  
+  A seguir terá subseções divididas em: esquemática do grafo, assim como 
+  uma tabela com informações sobre o teste: número de testes, algoritmo e
+  tempo médio.
+
+  \newpage 
+  \subsection{Grafo 1}
+
+  \begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[main/.style = {draw, circle,minimum size=10mm}] 
+      \node[main] (1) at (-10,5) {A}; 
+      \node[main] (2) at (-8,7)  {B}; 
+      \node[main] (3) at (-8,3)  {C};
+      \node[main] (4) at (-5,7)  {D};
+      \node[main] (5) at (-6,5)  {E}; 
+      \node[main] (6) at (-3,4)  {G};   
+      \node[main] (7) at (-4,2)  {H};   
+      \node[main] (8) at (-1,3)  {I};  
+      \node[main] (9) at (-1,6) {J};        
+      \node[main] (10) at (1,6)  {K};  
+
+      \draw (1) -- (2);
+      \draw (1) -- (3);
+      \draw (3) -- (2);
+      \draw (2) -- (4);
+      \draw (2) -- (5);
+      \draw (5) -- (6);
+      \draw (6) -- (7);
+      \draw (6) -- (8);
+      \draw (6) -- (9);
+      \draw (8) -- (9);
+      \draw (9) -- (10);
+    \end{tikzpicture} 
+
+  \end{figure}
 
   \section{Conclusão} \label{sec:conclusion}
 \end{document}

@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
         if(strcmp(argv[3],"kruskal") == 0) 
             teste->kruskal();
         else if(strcmp(argv[3],"dfs") == 0)
-            teste->depth_first_search(0);
+            teste->depth_first_search();
         
         time = clock() - time;
 

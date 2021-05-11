@@ -81,7 +81,7 @@ class Graph {
          *  YELLOW: Visited, but there's still adjacents to visit 
          *  RED: Visited, along with the adjacents
          */
-        counter depth_first_search(counter first);
+        counter depth_first_search();
 
         /** Kruskal's Algorythm, with a method to count cycles
          * 

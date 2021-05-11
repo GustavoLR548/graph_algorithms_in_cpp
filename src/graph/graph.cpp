@@ -158,7 +158,7 @@
 
     }
 
-    counter Graph::depth_first_search(counter first) {
+    counter Graph::depth_first_search() {
         std::vector<counter> colour;
         counter n_cycles = 0; //store the number of cycles in the graph
 
