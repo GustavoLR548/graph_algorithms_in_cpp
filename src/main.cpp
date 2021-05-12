@@ -40,29 +40,34 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    clock_t sum;
+    for(int i = 3; i < argc; i++) {
 
-    for (int j = 0 ; j < n ; j++ ) {
-        Graph* teste = new Graph(argv[2]);
+        clock_t sum;
 
-        teste->print();
-        
-        clock_t time = clock();
-        if(strcmp(argv[3],"kruskal") == 0) 
-            teste->kruskal();
-        else if(strcmp(argv[3],"dfs") == 0)
-            teste->depth_first_search();
-        
-        time = clock() - time;
+        for (int j = 0 ; j < n ; j++ ) {
+            Graph* teste = new Graph(argv[i]);
 
-        sum += time;
+            teste->print();
+            
+            clock_t time = clock();
+            if(strcmp(argv[2],"kruskal") == 0) 
+                teste->kruskal();
+            else if(strcmp(argv[2],"dfs") == 0)
+                teste->depth_first_search();
+            
+            time = clock() - time;
+
+            sum += time;
+        }
+
+        double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
+
+        results << "Graph[" << i << "]" << std::endl;
+        results << "path: " << argv[i] << std::endl;
+        results << "Total time: " << total_time << "s" << std::endl;
+        results << "Average time : " << total_time/n << "s" << std::endl;
+
     }
-
-    double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
-
-    results << "path: " << argv[2] << std::endl;
-    results << "Total time: " << total_time << "s" << std::endl;
-    results << "Average time : " << total_time/n << "s" << std::endl;
 
     return 0;
 }
