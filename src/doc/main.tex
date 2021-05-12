@@ -3,6 +3,7 @@
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
 \usepackage{tikz} 
+\usetikzlibrary{automata, arrows, positioning}
 
 \usepackage{listings}
 \usepackage{xcolor}
@@ -248,11 +249,58 @@
   tempo médio.
 
   \newpage 
+
   \subsection{Grafo 1}
 
   \begin{figure}[ht]
     \centering
-    \begin{tikzpicture}[main/.style = {draw, circle,minimum size=10mm}] 
+    \begin{tikzpicture}[node distance = 3cm,  auto,main/.style = {draw, circle,minimum size=10mm}] 
+      \node[main] (1) at (0,0) {A}; 
+      \node[main] (2) at (0,2)  {B}; 
+      \node[main] (3) at (2,2)  {C};
+      \node[main] (4) at (2,0)  {D};
+
+
+      \path[-]
+      (1) edge              node {1} (2)            
+      (2) edge              node {4} (3)
+      (3) edge              node {3} (4)
+      (3) edge              node {5} (1)
+      (1) edge              node {2} (4);
+    \end{tikzpicture} 
+
+  \end{figure}
+
+  \begin{table}[htbp]
+    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \cline{2-3} 
+    \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
+    \hline
+    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    \hline
+    \end{tabular}
+    \end{center}
+  \end{table}
+
+  \newpage
+
+  \subsection{Grafo 2}
+
+  \begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance = 3cm,  auto,main/.style = {draw, circle,minimum size=10mm}] 
       \node[main] (1) at (-10,5) {A}; 
       \node[main] (2) at (-8,7)  {B}; 
       \node[main] (3) at (-8,3)  {C};
@@ -264,20 +312,126 @@
       \node[main] (9) at (-1,6) {J};        
       \node[main] (10) at (1,6)  {K};  
 
-      \draw (1) -- (2);
-      \draw (1) -- (3);
-      \draw (3) -- (2);
-      \draw (2) -- (4);
-      \draw (2) -- (5);
-      \draw (5) -- (6);
-      \draw (6) -- (7);
-      \draw (6) -- (8);
-      \draw (6) -- (9);
-      \draw (8) -- (9);
-      \draw (9) -- (10);
+      \path[-]
+      (1) edge              node {6}  (2)            
+      (1) edge              node {15} (3)
+      (3) edge              node {4}  (2)
+      (2) edge              node {13} (4)
+      (2) edge              node {5}  (5)
+      (5) edge              node {8}  (6)
+      (6) edge              node {20} (7)
+      (6) edge              node {17} (8)
+      (6) edge              node {9}  (9)
+      (8) edge              node {12} (9)
+      (9) edge              node {1}  (10);
     \end{tikzpicture} 
 
   \end{figure}
 
+  \begin{table}[htbp]
+    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \cline{2-3} 
+    \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
+    \hline
+    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    \hline
+    \end{tabular}
+    \end{center}
+  \end{table}
+
+  \newpage
+
+  \subsection{Grafo 3}
+
+  \begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[scale=1.5,node distance = 3cm, auto, main/.style = {draw, circle,minimum size=10mm}] 
+      \node[main] (1) at (0,0)   {A}; 
+      \node[main] (2) at (2,0)   {B}; 
+      \node[main] (3) at (4,0)   {C};
+      \node[main] (4) at (6,0)   {D};
+      \node[main] (5) at (1,-2)  {E}; 
+      \node[main] (6) at (3,-2)  {G};   
+      \node[main] (7) at (5,-2)  {H};   
+      \node[main] (8) at (0,-4)  {I};   
+      \node[main] (9) at (2,-4)  {J}; 
+      \node[main] (10) at (4,-4)  {K};  
+      \node[main] (11) at (6,-4)  {L};   
+      \node[main] (12) at (1,-6)  {M}; 
+      \node[main] (13) at (3,-6)  {N};   
+      \node[main] (14) at (5,-6)  {O};  
+      \node[main] (15) at (0,-8)   {P}; 
+      \node[main] (16) at (2,-8)   {Q}; 
+      \node[main] (17) at (4,-8)   {R};
+      \node[main] (18) at (6,-8)   {S};
+
+      \path[-]
+      (1)  edge                 node {4}  (5)
+      (5)  edge                 node {1}  (2)
+      (2)  edge                 node {10}  (3)
+      (3)  edge                 node {3}  (4)
+      (5)  edge                 node {6}  (6)
+      (6)  edge                 node {21}  (7)
+      (2)  edge                 node {59}  (6)
+      (3)  edge                 node {28}  (6)
+      (3)  edge                 node {9}  (7)
+      (4)  edge                 node {48}  (11)
+      (7)  edge                 node {24}  (11)
+      (11) edge                 node {15}  (18)
+      (6)  edge                 node {7}  (10)
+      (10) edge                 node {58}  (9)
+      (6)  edge                 node {29}  (9)
+      (8)  edge                 node {50}  (9)
+      (11) edge                 node {49}  (14)
+      (14) edge                 node {21}  (17)
+      (9)  edge                 node {2}  (13)
+      (13) edge                 node {55}  (17)
+      (17) edge                 node {30}  (16)
+      (16) edge                 node {11}  (15)
+      (15) edge [bend left=20]  node {13}  (1)
+      (16) edge                 node {19}  (12)
+      (18) edge                 node {22}  (14);
+
+    \end{tikzpicture} 
+
+  \end{figure}
+
+  \begin{table}[htbp]
+    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \cline{2-3} 
+    \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
+    \hline
+    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    \hline
+    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    \hline
+    \end{tabular}
+    \end{center}
+  \end{table}
+
+  \newpage
+  
   \section{Conclusão} \label{sec:conclusion}
 \end{document}

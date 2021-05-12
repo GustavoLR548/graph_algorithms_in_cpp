@@ -58,8 +58,6 @@ int main(int argc, char *argv[]) {
         sum += time;
     }
 
-    std::cout << "cheguei aq?" << std::endl;
-
     double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
 
     results << "path: " << argv[2] << std::endl;
