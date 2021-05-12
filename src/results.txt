@@ -1,3 +1,12 @@
-path: graph.txt
-Total time: 0.062s
-Average time : 0.0062s
+Graph[0]
+path: graph1.txt
+Total time: 973.527s
+Average time : 0.00973527s
+Graph[1]
+path: graph2.txt
+Total time: 1547.98s
+Average time : 0.0154798s
+Graph[2]
+path: graph3.txt
+Total time: 2517.4s
+Average time : 0.025174s

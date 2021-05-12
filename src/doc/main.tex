@@ -80,7 +80,7 @@
     detalhamos como implementos os nossos algoritmos de permutação e caminhamento respectivamente.
     A seção \ref{sec:performance} é a demonstração da performance dos códigos, assim como também 
     os grafos utilizados para os testes e como fizemos os testes. Por fim, na seção \ref{sec:conclusion}
-    concluímos o trabalho com nossas perspectivas.
+    concluímos o trabalho com nossas perspectivas sobre os resultados.
 
   \section{Grafo} \label{sec:graph}
 
@@ -242,7 +242,21 @@
   \end{itemize}
 
   Ao iniciar o programa com os parâmetros necessários, um número 'n' do teste especificado 
-  será realizado nos grafos inseridos, e o resultado será colocado em arquivo("results.txt").
+  será realizado nos grafos inseridos, e o resultado será colocado em um arquivo("results.txt").
+
+  Antes de mostrar os testes, também gostaria de colocar as especificações do computador 
+  que foi utilizado para a realização dos testes, pois isso pode ser também um fator 
+  que influencia nos tempos alcançados.
+
+  OS: Arch Linux
+  
+  KERNEL: 5.12.2-arch1-1
+  
+  CPU: Intel Core i7-7700 @ 3.60GHz
+  
+  GPU: NVIDIA GeForce GTX 1060 6GB
+  
+  RAM: 16 GB
   
   A seguir terá subseções divididas em: esquemática do grafo, assim como 
   uma tabela com informações sobre o teste: número de testes, algoritmo e
@@ -268,31 +282,40 @@
       (3) edge              node {5} (1)
       (1) edge              node {2} (4);
     \end{tikzpicture} 
+    \caption{Grafo \arabic{subsection} - 4 vértices e 5 arestas }
 
   \end{figure}
 
   \begin{table}[htbp]
-    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \caption{Testes nos algoritmos implementados usando o grafo \arabic{subsection}}
     \begin{center}
     \begin{tabular}{|c|c|c|c|}
     \hline
-    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo médio(em segundos)}} \\
     \cline{2-3} 
     \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
     \hline
-    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{1}}$& 0.0363 & 0.0051 \\
     \hline
-    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{2}}$& 0.01504 & 0.00534 \\
     \hline
-    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{3}}$& 0.010091 & 0.003813 \\
     \hline
-    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{4}}$& 0.0097517 & 0.0033486 \\
     \hline
-    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{5}}$& 0.00973527 & 0.00333444 \\
+    \hline
+    \textbf{Média total:} & 0.08091797 & 0.02093604 \\
     \hline
     \end{tabular}
     \end{center}
   \end{table}
+
+  Uma das coisas que pode ser observado nesse teste e nos próximos, é de que: a medida que 
+  mais testes são feitos, o tempo médio vai ficando cada vez mais preciso. De qualquer maneira,
+  é possível observar uma coisa bem interessante nessa tabela, no começo, o DFS(busca em profundidade)
+  começa com um desempenho um pouco melhor do que o Kruskal, porém, com os testes seguintes, 
+  o DFS fica muito pior do que o Kruskal, com um desempenho 4x pior que o Kruskal.
 
   \newpage
 
@@ -325,31 +348,38 @@
       (8) edge              node {12} (9)
       (9) edge              node {1}  (10);
     \end{tikzpicture} 
+    \caption{Grafo \arabic{subsection} - 10 vértices e 11 arestas }
 
   \end{figure}
 
   \begin{table}[htbp]
-    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \caption{Testes nos algoritmos implementados usando o grafo \arabic{subsection}}
     \begin{center}
     \begin{tabular}{|c|c|c|c|}
     \hline
-    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo médio(em segundos)}} \\
     \cline{2-3} 
     \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
     \hline
-    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{1}}$& 0.0566 & 0.0186 \\
     \hline
-    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{2}}$& 0.02091 & 0.01429 \\
     \hline
-    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{3}}$& 0.015381 & 0.010599 \\
     \hline
-    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{4}}$& 0.0155222 & 0.0104494 \\
     \hline
-    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{5}}$& 0.0154798 & 0.0103009 \\
+    \hline
+    \textbf{Média total:} & 0.123893 & 0.0642393 \\
     \hline
     \end{tabular}
     \end{center}
   \end{table}
+
+  Com o aumento do número de vértices e arestas, também há como esperado um aumento no tempo médio para rodar 
+  ambos os algoritmos. Entretanto, é interessante notar que a diferença entre o DFS e o Kruskal ficou menor, agora 
+  o Kruskal é só 2x melhor do que o DFS.
 
   \newpage
 
@@ -405,33 +435,55 @@
       (18) edge                 node {22}  (14);
 
     \end{tikzpicture} 
+    \caption{Grafo \arabic{subsection} - 18 vértices e 26 arestas }
 
   \end{figure}
 
   \begin{table}[htbp]
-    \caption{Testes nos algoritmo implementado usando o grafo 1}
+    \caption{Testes nos algoritmos implementados usando o grafo \arabic{subsection}}
     \begin{center}
     \begin{tabular}{|c|c|c|c|}
     \hline
-    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo(em segundos)}} \\
+    \textbf{Número de}&\multicolumn{2}{|c|}{\textbf{Tempo médio(em segundos)}} \\
     \cline{2-3} 
     \textbf{testes} & \textbf{\textit{DFS}}& \textbf{\textit{Kruskal}} \\
     \hline
-    10$^{\mathrm{1}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{1}}$& 0.0877 & 0.0469 \\
     \hline
-    10$^{\mathrm{2}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{2}}$& 0.02977 & 0.0287 \\
     \hline
-    10$^{\mathrm{3}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{3}}$& 0.024836 & 0.025789 \\
     \hline
-    10$^{\mathrm{4}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{4}}$& 0.0251404 & 0.0253671 \\
     \hline
-    10$^{\mathrm{5}}$& 0.115 & 0.115 \\
+    10$^{\mathrm{5}}$& 0.025174 & 0.0250916 \\
+    \hline
+    \textbf{Média total:} & 0.1926204 & 0.1518477 \\
     \hline
     \end{tabular}
     \end{center}
   \end{table}
 
   \newpage
+
+  Por fim, temos mais um resultado interessante. Começou com o Kruskal tendo um desempenho 
+  significante maior, e com o aumento do número de vértices e de arestas, a diferença entre 
+  os dois foi diminuindo e com este grafo não é diferente. Com 10$^{\mathrm{5}}$, a diferença 
+  entre os dois é quase inexistente.
+
+  \newpage
   
   \section{Conclusão} \label{sec:conclusion}
+
+  No ínicio deste trabalho, acreditavamos que o DFS teria um desempenho melhor, devido ao fato que
+  ele realiza uma permutação no grafo, logo, só irá passar uma única vez pelas vértices. Entretanto 
+  na maioria dos casos o Kruskal conseguia um desempenho melhor, sendo apenas no final o momento que 
+  ambos começaram a apresentar um desempenho equivalente.
+
+  Essa diferença começa a fazer mais sentido, quando colocado em perspectiva com a complexidade
+  de ambos os algoritmos. Kruskal possui uma complexidade de O(e*log(e) + e*log(v)) enquanto que 
+  a busca em profundidade possui uma complexidade de O(v + e). Isso deixa claro o fato que quando 
+  você possui um grafo denso(com muitas arestas), acaba que o custo da operação fica mais alto, logo, 
+  explicando o comportamento dos algoritmos durante os testes.
+
 \end{document}

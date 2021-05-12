@@ -35,16 +35,17 @@ int main(int argc, char *argv[]) {
     
     std::ofstream results("results.txt");
 
-    if(strstr(argv[2],".txt") == NULL) {
-        std::cerr << "[ERROR]: \"" << argv[2] << "\" is not a text file path \n"<< std::endl;
-        return 0;
-    }
-
     for(int i = 3; i < argc; i++) {
 
         clock_t sum;
 
         for (int j = 0 ; j < n ; j++ ) {
+
+            if(strstr(argv[i],".txt") == NULL) {
+                std::cerr << "[ERROR]: \"" << argv[2] << "\" is not a text file path \n"<< std::endl;
+                return 0;
+            }
+
             Graph* teste = new Graph(argv[i]);
 
             teste->print();
@@ -62,7 +63,7 @@ int main(int argc, char *argv[]) {
 
         double total_time = ((double)sum)/((CLOCKS_PER_SEC/1000));
 
-        results << "Graph[" << i << "]" << std::endl;
+        results << "Graph[" << i - 3 << "]" << std::endl;
         results << "path: " << argv[i] << std::endl;
         results << "Total time: " << total_time << "s" << std::endl;
         results << "Average time : " << total_time/n << "s" << std::endl;
