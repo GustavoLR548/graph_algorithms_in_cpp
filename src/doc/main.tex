@@ -5,10 +5,20 @@
 \usepackage{tikz} 
 \usetikzlibrary{automata, arrows, positioning}
 
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 \usepackage{listings}
 \usepackage{xcolor}
 
 \usepackage[utf8]{inputenc}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -148,8 +158,6 @@
     A função print é responsável em imprimir o atual estado do grafo, tanto
     em questão das adjacências, quanto as arestas e seus pesos respectivamente.
 
-  \newpage
-
   \section{Permutação} \label{sec:permutation}
 
     Com as funcionalidades gerais do grafo especificadas, é possível agora ir para a 
@@ -162,7 +170,7 @@
     
     Em nossa implementação, o vértice inicial sempre será o "vértice raiz"(index 0), 
     e para memorizar todas as vértices já visitadas, também é utilizado um vetor de cores,
-    onde o seu tamanho é igual ao número de vértices, e cada posição representa uma vértice do 
+    onde o seu tamanho é igual ao número de vértices, e cada posição representa um vértice do 
     grafo. Eis as cores utilizadas e seus significados:
 
     \begin{itemize}
@@ -174,19 +182,32 @@
     Por fim, vamos dar uma olhada em quais são os passos que o código 
     faz, para chegar ao resultado desejado:
 
-    \begin{itemize}
-      \item Iniciar vetor de cores e colocar todas as posições como WHITE
-      \item Iniciar loop por todas os vértices 
-      \item Se vértice == WHITE, visitá-lo
-      
-      Ao visitar:
-      \begin{itemize}
-        \item Se vértice visitado == RED, sair.
-        \item Se vértice visitado == YELLOW, ciclo encontrado, ++número de ciclos.
-        \item Iniciar loop por todas os vértices adjacentes ao vértice atual 
-        \item Se o vértice não for o pai da vértice atual, visitá-lo.
-      \end{itemize}
-    \end{itemize}
+    \begin{algorithm}
+      \caption{Permutation} \label{euclid}
+      \begin{algorithmic}[1]
+      \Procedure{DFS}{}
+      \State {$\text{colors} \gets \text{[G.vertex]}$}
+      \For{$\text{v in G.V}$}
+      \If{$\text{colors[v] == WHITE}$}
+      \State {$\textbf{visit(v,colors)}$}
+      \EndIf
+      \EndFor
+      \EndProcedure
+      \Procedure{visit}{index,colors}
+      \State {$\text{colors[index]} \gets \text{YELLOW}$}
+      \For{$\text{v in G.adj[index]}$}
+      \If{$\text{colors[v] == WHITE}$}
+      \State {$\textbf{visit(v,colors)}$}
+      \EndIf
+      \EndFor
+      \EndProcedure
+      \end{algorithmic}
+    \end{algorithm}
+
+    A esquemática acima define como é normalmente o código para a busca em profundidade. 
+    Para adaptar de forma que ela consiga encontrar ciclos, precisamos enviar para a 
+    função \emph{visit}, o pai do vértice, e verificar se o vértice que está sendo visitado 
+    está com a cor \emph{AMARELO} e este não é o pai.
 
   \section{Caminhamento} \label{sec:walking}
 
@@ -202,19 +223,27 @@
   Então fica a pergunta: se o Kruskal serve para encontrar uma MST, então como podemos usa-lo 
   para encontrar ciclos? 
 
-  Para responder essa pergunta: precisamos entender a lógica do algoritmo:
+  Para responder essa pergunta, precisamos entender a lógica do algoritmo:
 
-  \begin{itemize}
-    \item Fazer uma ordenação das arestas pelo seus pesos(menor para o maior)
-    \item Criar um disjoint-set com o número de vértices do grafo 
-    \item Iniciar loop por todas as arestas
-    \item Se ligar a aresta atual não formar um ciclo
-    
-    \begin{itemize}
-      \item Adicionar aresta no disjoint-set 
-      \item Fazer merge dos conjuntos dentro do disjoint-set
-    \end{itemize}
-  \end{itemize}
+  \begin{algorithm}
+    \caption{Walk} \label{euclid2}
+    \begin{algorithmic}[1]
+    \Procedure{Kruskal}{}
+    \State {$\text{T} \gets \varnothing$}
+    \State {$\text{queue} \gets \text{sort (u, v) edges of E using 1}$}
+    \For{$\text{v in G.V}$}
+    \State {$\text{make-tree(v)}$}
+    \EndFor
+    \While{$\text{queue} \neq \varnothing \text{ AND trees-count $>$ 1}$}.
+    \State {$\text{\{u,v\}} \gets \text{queue.extractMin()}$}
+    \If{$\text{!(T } \cup \text{(\{u, v\} has cycle)}$}
+    \State {$\text{T.add(\{u,v\})}$}
+    \State {$\text{merge (tree-of(u), tree-of(v))}$}
+    \EndIf
+    \EndWhile
+    \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
 
   Para a realização do Kruskal, ele necessita fazer a verificação se um ciclo será formado,
   ao unir as duas arestas, logo, apenas adicionar mais uma verificação e um contador para 
@@ -261,8 +290,6 @@
   A seguir terá subseções divididas em: esquemática do grafo, assim como 
   uma tabela com informações sobre o teste: número de testes, algoritmo e
   tempo médio.
-
-  \newpage 
 
   \subsection{Grafo 1}
 
@@ -436,7 +463,6 @@
 
     \end{tikzpicture} 
     \caption{Grafo \arabic{subsection} - 18 vértices e 26 arestas }
-
   \end{figure}
 
   \begin{table}[htbp]
@@ -470,8 +496,6 @@
   significante maior, e com o aumento do número de vértices e de arestas, a diferença entre 
   os dois foi diminuindo e com este grafo não é diferente. Com 10$^{\mathrm{5}}$, a diferença 
   entre os dois é quase inexistente.
-
-  \newpage
   
   \section{Conclusão} \label{sec:conclusion}
 
