@@ -6,7 +6,7 @@ This github repository was created to implement graphs in cpp, in order to count
 
 - [x] Walk 
 - [x] Permutation
-- [ ] Documentation 
+- [x] Documentation 
 
 # How to use this repository
 
