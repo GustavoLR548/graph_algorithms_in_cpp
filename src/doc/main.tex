@@ -71,7 +71,7 @@
   \begin{resumo} 
     Este documento serve como um relatório sobre o estudo em duas maneiras 
     diferentes de enumerar ciclos dentro de um grafo: permutação e por caminhamento. Para esse 
-    estudo, trabalhamos apenas com grafos não-direcionado. Então fizemos um método
+    estudo, trabalhamos apenas com grafos não-direcionados. Então fizemos um método
     para calcular o desempenho do caminhamento e da permutação, na medida que o grafo aumentasse.
   \end{resumo}
 
@@ -94,14 +94,14 @@
 
   \section{Grafo} \label{sec:graph}
 
-    Para maior organizações, todas as classes implementadas possuem um header (arquivo .hpp)
+    Para maior organização, todas as classes implementadas possuem um header (arquivo .hpp)
     e o grafo não é uma exceção. Em graph.hpp é colocado todas as variáveis, assim também como as 
     funções usadas pelo grafo. Em graph.cpp, todas as declarações feitas no arquivo .hpp, são 
     implementadas.
     
     Para o nosso próposito, apenas duas estruturas foram usadas para guardar informações sobre
     o grafo: primeiro temos um vetor , com um vetor de indíces. A ideia é colocar listas flexíveis,
-    onde cada posição representa os adjacentes de determinada vértice. Essa estrutura é muito
+    onde cada posição representa os adjacentes de determinado vértice. Essa estrutura é muito
     importante para a permutação. 
 
     \begin{lstlisting}[language=c++]
@@ -130,7 +130,7 @@
     \begin{itemize}
       \item O primeiro apenas inicia o grafo, sem nenhum vértice. 
       \item O segundo construtor inicia o grafo com N número de vértices, porém, sem arestas,
-      logo é criado um grafo nulo
+      logo é criado um grafo nulo.
       \item O terceiro construtor foi feito para a realização dos testes. Ele pega informações do
       grafo a partir de um arquivo .txt, sendo a primeira linha o número de vértices e as linhas 
       seguintes contendo as arestas, assim como os pesos(se tiver).
@@ -144,12 +144,12 @@
   \subsection{add\_vertex}
 
     Finalmente, começando com as funcionalidades do grafo, temos a função para adicionar 
-    uma vertex isolada ao grafo, adicionando um iterator ao vector. Se a operação for um sucesso, 
-    será retornado o index da vértice adicionada.
+    uma vertex isolada ao grafo, adicionando um iterator ao vetor. Se a operação for um sucesso, 
+    será retornado o index do vértice adicionado.
 
   \subsection{add\_edge}
 
-    Se houver as vértices especificadas, será adicionado a nova ligação a lista de 
+    Se houver os vértices especificados, será adicionado a nova ligação a lista de 
     adjacência e de arestas. Se o peso não for especificado, ele será colocado como zero.
     Por fim, a função retorna um booleano, indicando se foi um sucesso.
 
@@ -162,21 +162,21 @@
 
     Com as funcionalidades gerais do grafo especificadas, é possível agora ir para a 
     implementação do algoritmo de permutação. Na teoria de grafos, permutação significa
-    percorrer por todas as vértices uma única vez,seguindo a ordem: [v1,a1,v2,a2...]
+    percorrer por todos os vértices uma única vez,seguindo a ordem: [v1,a1,v2,a2...]
 
     O algoritmo de permutação escolhido foi o busca em profundidade(também conhecido 
     como DFS(Depth-first-search)), a ideia do algoritmo é percorrer todos os vértices,
     com o intuito de achar o vértice mais fundo.
     
     Em nossa implementação, o vértice inicial sempre será o "vértice raiz"(index 0), 
-    e para memorizar todas as vértices já visitadas, também é utilizado um vetor de cores,
+    e para memorizar todos os vértices já visitados, também é utilizado um vetor de cores,
     onde o seu tamanho é igual ao número de vértices, e cada posição representa um vértice do 
     grafo. Eis as cores utilizadas e seus significados:
 
     \begin{itemize}
-      \item WHITE: Vértice e sua vizinhança ainda não visitado 
-      \item YELLOW: Vértice visitado porém não sua vizinhança como todo
-      \item RED: Vértice visitado assim como sua vizinhança
+      \item WHITE: Vértice e sua vizinhança ainda não visitado.
+      \item YELLOW: Vértice visitado porém não sua vizinhança como todo.
+      \item RED: Vértice visitado assim como sua vizinhança.
     \end{itemize}
 
     Por fim, vamos dar uma olhada em quais são os passos que o código 
@@ -246,9 +246,9 @@
     \end{algorithmic}
   \end{algorithm}
 
-  Para a realização do Kruskal, ele necessita fazer a verificação se um ciclo será formado,
-  ao unir as duas arestas, logo, apenas adicionar mais uma verificação e um contador para 
-  que seja possível contar o número de ciclos.
+  Para a realização do Kruskal, ele necessita fazer a verificação caso um ciclo seja formado
+  ao unir as duas arestas. Por isso, adicionar mais uma verificação e um contador é o suficiente 
+  para que seja possível contar o número de ciclos.
 
   Além disso, adicionamos uma estrutura auxiliar. O Disjoin-sets é uma estrutura separada do grafo,
   que foi criada para ser utilizada apenas no Kruskal. O objetivo de se utilizar Disjoin-sets é para 
@@ -261,14 +261,14 @@
   Na seção \ref{ssec:constructors}, foi detalhado os construtores do grafo. Entre eles,
   o construtor 3 do grafo foi feito especificamente para realização dos testes. Ele 
   recebe um char* com o diretório de um arquivo ".txt". Esse arquivo possui informações como número de 
-  vértices, as relações entre as vértices(arestas), e por fim, se tiver, o peso das arestas.
+  vértices, as relações entre os vértices, e por fim, se tiver, o peso das arestas.
 
   Para iniciar o programa, o usuário precisa enviar parâmetros para a função, entre esses parâmetros estão:
 
   \begin{itemize}
-    \item A quantidade de testes a ser feito
-    \item Qual método de contagem de ciclo usar ("kruskal" ou "dfs")
-    \item O diretório para os arquivos com os grafos
+    \item A quantidade de testes a ser feito.
+    \item Qual método de contagem de ciclo usar ("kruskal" ou "dfs").
+    \item O diretório para os arquivos com os grafos.
   \end{itemize}
 
   Ao iniciar o programa com os parâmetros necessários, um número 'n' do teste especificado 
@@ -343,7 +343,7 @@
   mais testes são feitos, o tempo médio vai ficando cada vez mais preciso. De qualquer maneira,
   é possível observar uma coisa bem interessante nessa tabela, no começo, o DFS(busca em profundidade)
   começa com um desempenho um pouco melhor do que o Kruskal, porém, com os testes seguintes, 
-  o DFS fica muito pior do que o Kruskal, com um desempenho 4x pior que o Kruskal.
+  o DFS fica com um desempenho 4x pior que o Kruskal.
 
   \newpage
 
@@ -494,14 +494,14 @@
   \newpage
 
   Por fim, temos mais um resultado interessante. Começou com o Kruskal tendo um desempenho 
-  significante maior, e com o aumento do número de vértices e de arestas, a diferença entre 
-  os dois foi diminuindo e com este grafo não é diferente. Com 10$^{\mathrm{5}}$, a diferença 
+  significativamente maior, e com o aumento do número de vértices e de arestas, a diferença entre 
+  os dois foi diminuindo e com este grafo não é diferente. Com 10$^{\mathrm{5}}$ testes, a diferença 
   entre os dois é quase inexistente.
   
   \section{Conclusão} \label{sec:conclusion}
 
   No ínicio deste trabalho, acreditavamos que o DFS teria um desempenho melhor, devido ao fato que
-  ele realiza uma permutação no grafo, logo, só irá passar uma única vez pelas vértices. Entretanto 
+  ele realiza uma permutação no grafo, logo, só irá passar uma única vez pelos vértices. Entretanto 
   na maioria dos casos o Kruskal conseguia um desempenho melhor, sendo apenas no final o momento que 
   ambos começaram a apresentar um desempenho equivalente.
 
