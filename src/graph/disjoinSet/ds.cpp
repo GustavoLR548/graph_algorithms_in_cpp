@@ -2,6 +2,7 @@
 
     DisjoinSets::DisjoinSets(int n) {
         
+        //start all nodes
         for(int i = 0; i < n ; i++) 
             this->nodes.push_back({0,i});
         

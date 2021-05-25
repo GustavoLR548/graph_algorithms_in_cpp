@@ -284,9 +284,11 @@
   
   CPU: Intel Core i7-7700 @ 3.60GHz
   
-  GPU: NVIDIA GeForce GTX 1060 6GB
-  
-  RAM: 16 GB
+  GCC Compiler: 
+
+  Versão : 10.2.0-6
+
+  Dependências: gcc-libs=10.2.0-6  binutils$>=$2.28  libmpc
   
   A seguir terá subseções divididas em: esquemática do grafo, assim como 
   uma tabela com informações sobre o teste: número de testes, algoritmo e
@@ -333,17 +335,18 @@
     \hline
     10$^{\mathrm{5}}$& 0.00973527 & 0.00333444 \\
     \hline
-    \textbf{Média total:} & 0.08091797 & 0.02093604 \\
+    \textbf{$\sum$} & 0.08091797 & 0.02093604 \\
     \hline
     \end{tabular}
     \end{center}
   \end{table}
 
   Uma das coisas que pode ser observado nesse teste e nos próximos, é de que: a medida que 
-  mais testes são feitos, o tempo médio vai ficando cada vez mais preciso. De qualquer maneira,
-  é possível observar uma coisa bem interessante nessa tabela, no começo, o DFS(busca em profundidade)
-  começa com um desempenho um pouco melhor do que o Kruskal, porém, com os testes seguintes, 
-  o DFS fica com um desempenho 4x pior que o Kruskal.
+  mais testes são feitos, o tempo médio vai ficando cada vez mais preciso. É compreensível que 
+  é desnecessário colocar todos os resultados de todos os números de testes, mas decidimos colocar
+  esses resultados apenas para provar o ponto. De qualquer maneira, é possível observar uma coisa 
+  bem interessante nessa tabela, no começo, o DFS(busca em profundidade) começa com um desempenho 
+  um pouco melhor, porém, com os testes seguintes, o DFS fica com um desempenho 4x pior que o Kruskal.
 
   \newpage
 
@@ -399,7 +402,7 @@
     \hline
     10$^{\mathrm{5}}$& 0.0154798 & 0.0103009 \\
     \hline
-    \textbf{Média total:} & 0.123893 & 0.0642393 \\
+    \textbf{$\sum$} & 0.123893 & 0.0642393 \\
     \hline
     \end{tabular}
     \end{center}
@@ -485,7 +488,7 @@
     \hline
     10$^{\mathrm{5}}$& 0.025174 & 0.0250916 \\
     \hline
-    \textbf{Média total:} & 0.1926204 & 0.1518477 \\
+    \textbf{$\sum$} & 0.1926204 & 0.1518477 \\
     \hline
     \end{tabular}
     \end{center}

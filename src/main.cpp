@@ -47,15 +47,12 @@ int main(int argc, char *argv[]) {
             }
 
             Graph* teste = new Graph(argv[i]);
-
-            teste->print();
             
             clock_t time = clock();
             if(strcmp(argv[2],"kruskal") == 0) 
                 teste->kruskal();
             else if(strcmp(argv[2],"dfs") == 0)
                 teste->depth_first_search();
-            
             time = clock() - time;
 
             sum += time;
@@ -78,7 +75,15 @@ void test(int argc, char *argv[]) {
 
     Graph* teste = new Graph(argv[2]);
     teste->print();
-    counter n = teste->kruskal();
+
+    counter n;
+
+    if(strcmp(argv[3],"kruskal") == 0) 
+        n = teste->kruskal();
+    else 
+        n = teste->depth_first_search();
+    
+
     std::cout << "\nnum_cycles = " << n << std::endl;
 }
 
